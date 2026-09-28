@@ -1,0 +1,16 @@
+{
+  "goal": "Look up the member by member ID and read their current Share Savings balance. Open the Share Savings account detail and extract the Current Balance as money.",
+  "tenant_id": "tenant-a",
+  "entry": "member_search",
+  "capability_id": "read-savings-balance",
+  "capability_name": "Read share savings balance",
+  "inputs": [
+    {"name": "member_id", "type": "string", "pattern": "^\\d{5}$", "description": "5-digit member ID", "sensitivity": "pii_low"}
+  ],
+  "expected_outputs": [
+    {"name": "savings_balance", "type": "money"}
+  ],
+  "max_steps": 20,
+  "timeout_s": 300,
+  "escalation_mode": "fail_fast"
+}

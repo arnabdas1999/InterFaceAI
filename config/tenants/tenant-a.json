@@ -1,0 +1,11 @@
+{
+  "tenant_id": "tenant-a",
+  "display_name": "Harborview FCU (synthetic base tenant)",
+  "app_profile": "synthcore@1.0.0",
+  "base_url": "http://127.0.0.1:8765",
+  "product_version": "4.2.7",
+  "vocabulary": {},
+  "secret_ref": "synthcore/operator",
+  "override_refs": [],
+  "data_classification": "synthetic"
+}

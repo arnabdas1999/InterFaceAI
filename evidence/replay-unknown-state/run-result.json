@@ -1,0 +1,42 @@
+{
+  "run_id": "rep-20260927T205110-0388de",
+  "mode": "replay",
+  "capability": "read-savings-balance@1.0.0",
+  "content_hash": "sha256:12c98921de5affb0e32472961398f8c95d2aa27d408030c0c04b14693880e6e3",
+  "tenant_id": "tenant-a",
+  "started_at": "2026-09-27T20:51:10.606Z",
+  "finished_at": "2026-09-27T20:51:12.833Z",
+  "duration_ms": 2226,
+  "evidence": [
+    {
+      "kind": "screenshot",
+      "path": "screenshots/2272514-s3-obscured.png",
+      "note": "masked; s3-obscured"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/2272514-s3-obscured.html",
+      "note": "sanitized; s3-obscured"
+    },
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [],
+  "overrides": [],
+  "status": "failure",
+  "category": "hard_failure",
+  "code": "unknown_state",
+  "message": "'Click button 'View Accounts'' is covered by an unrecognized modal or disabled",
+  "retryable": false,
+  "side_effect_state": "none",
+  "step_id": "s3",
+  "expected": "Click button 'View Accounts' actionable",
+  "observed": "control obscured by an unknown overlay",
+  "attempts": 1,
+  "locator_diagnostics": [],
+  "recoveries": [],
+  "drift": []
+}

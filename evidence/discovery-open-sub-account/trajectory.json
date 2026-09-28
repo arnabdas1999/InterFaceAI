@@ -1,0 +1,461 @@
+{
+  "run_id": "disc-20260927T194811-b16f52",
+  "request": {
+    "goal": "Look up the member by member ID, start opening a new sub-account with the given product and nickname, and stop at the review screen. Do NOT open the account.",
+    "tenant_id": "tenant-a",
+    "entry": "member_search",
+    "capability_id": "open-sub-account",
+    "capability_name": "Open a sub-account (review, then approved commit)",
+    "inputs": [
+      {
+        "name": "member_id",
+        "type": "string",
+        "description": "5-digit member ID",
+        "pattern": "^\\d{5}$",
+        "sensitivity": "pii_low"
+      },
+      {
+        "name": "product",
+        "type": "enum",
+        "description": "Product to open (vocabulary key)",
+        "enum": [
+          "share_savings",
+          "money_market",
+          "share_certificate"
+        ],
+        "sensitivity": "public"
+      },
+      {
+        "name": "nickname",
+        "type": "string",
+        "description": "Account nickname",
+        "pattern": "^[A-Za-z0-9 ]{1,24}$",
+        "sensitivity": "pii_low"
+      }
+    ],
+    "expected_outputs": [],
+    "max_steps": 20,
+    "timeout_s": 300,
+    "escalation_mode": "fail_fast",
+    "headed": false
+  },
+  "model": "gemini-3.7-flash",
+  "prompt_template_hash": "sha256:5490e1fd0efc7dea",
+  "steps": [
+    {
+      "index": 1,
+      "provenance": "model",
+      "action": "type",
+      "target": {
+        "description": "Type input member_id into 'Member ID'",
+        "frame_path": [],
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.85,
+            "rationale": "Control in the table row labelled 'Member ID'; legacy markup has no <label> wiring.",
+            "strategy": "label_anchor",
+            "anchor_text": "Member ID",
+            "relation": "same_row_following",
+            "control": "input"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.7,
+            "rationale": "Stable, non-generated attribute(s) on the control.",
+            "strategy": "attribute",
+            "tag": "input",
+            "attributes": {
+              "name": "mbr"
+            }
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.3,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "strategy": "structural",
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(2) > input:nth-of-type(1)"
+          }
+        ],
+        "review_required": false
+      },
+      "value": {
+        "from_input": "member_id"
+      },
+      "risk": "sensitive_reversible",
+      "intent_risk": "read_only",
+      "submits_form": false,
+      "element_role": "textbox",
+      "route_before": "/members/search",
+      "route_after": "/members/search",
+      "frames_after": [],
+      "dialog_states": [],
+      "recoveries": [],
+      "description": "Type input member_id into 'Member ID'",
+      "rationale": "Enter the member ID into the search input.",
+      "elapsed_ms": 10,
+      "dead_end": false
+    },
+    {
+      "index": 2,
+      "provenance": "model",
+      "action": "click",
+      "target": {
+        "description": "Click button 'Search'",
+        "frame_path": [],
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.9,
+            "rationale": "Accessible role 'button' with name from value; survives layout and markup changes.",
+            "strategy": "role_name",
+            "role": "button",
+            "name": "Search",
+            "exact": true
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.3,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "strategy": "structural",
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1) > input:nth-of-type(1)"
+          }
+        ],
+        "review_required": false
+      },
+      "risk": "sensitive_reversible",
+      "intent_risk": "read_only",
+      "submits_form": true,
+      "element_role": "button",
+      "route_before": "/members/search",
+      "route_after": "/members/:member_id",
+      "frames_after": [
+        {
+          "frame_path": [
+            {
+              "name": "acctFrame"
+            }
+          ],
+          "route": "/blank"
+        }
+      ],
+      "dialog_states": [],
+      "recoveries": [],
+      "description": "Click button 'Search'",
+      "rationale": "Click Search to look up the member.",
+      "elapsed_ms": 68,
+      "dead_end": false
+    },
+    {
+      "index": 3,
+      "provenance": "model",
+      "action": "click",
+      "target": {
+        "description": "Click link 'Open Sub-Account'",
+        "frame_path": [],
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.9,
+            "rationale": "Accessible role 'link' with name from content; survives layout and markup changes.",
+            "strategy": "role_name",
+            "role": "link",
+            "name": "Open Sub-Account",
+            "exact": true
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.3,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "strategy": "structural",
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > a:nth-of-type(1)"
+          }
+        ],
+        "review_required": false
+      },
+      "risk": "reversible",
+      "intent_risk": "read_only",
+      "submits_form": false,
+      "element_role": "link",
+      "route_before": "/members/:member_id",
+      "route_after": "/members/:member_id/subaccounts/new",
+      "frames_after": [
+        {
+          "frame_path": [
+            {
+              "name": "acctFrame"
+            }
+          ],
+          "route": "/blank"
+        }
+      ],
+      "dialog_states": [],
+      "recoveries": [],
+      "description": "Click link 'Open Sub-Account'",
+      "rationale": "Click Open Sub-Account to start the sub-account opening flow.",
+      "elapsed_ms": 56,
+      "dead_end": false
+    },
+    {
+      "index": 4,
+      "provenance": "model",
+      "action": "select",
+      "target": {
+        "description": "Select input product in 'Product'",
+        "frame_path": [],
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.85,
+            "rationale": "Control in the table row labelled 'Product'; legacy markup has no <label> wiring.",
+            "strategy": "label_anchor",
+            "anchor_text": "Product",
+            "relation": "same_row_following",
+            "control": "select"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.7,
+            "rationale": "Stable, non-generated attribute(s) on the control.",
+            "strategy": "attribute",
+            "tag": "select",
+            "attributes": {
+              "name": "prd"
+            }
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.3,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "strategy": "structural",
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(2) > select:nth-of-type(1)"
+          }
+        ],
+        "review_required": false
+      },
+      "value": {
+        "from_input": "product"
+      },
+      "select_by": "value",
+      "risk": "reversible",
+      "intent_risk": "reversible",
+      "submits_form": false,
+      "element_role": "combobox",
+      "route_before": "/members/:member_id/subaccounts/new",
+      "route_after": "/members/:member_id/subaccounts/new",
+      "frames_after": [
+        {
+          "frame_path": [
+            {
+              "name": "acctFrame"
+            }
+          ],
+          "route": "/blank"
+        }
+      ],
+      "dialog_states": [],
+      "recoveries": [],
+      "description": "Select input product in 'Product'",
+      "rationale": "Select the sub-account product.",
+      "elapsed_ms": 11,
+      "dead_end": false
+    },
+    {
+      "index": 5,
+      "provenance": "model",
+      "action": "type",
+      "target": {
+        "description": "Type input nickname into 'Nickname'",
+        "frame_path": [],
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.85,
+            "rationale": "Control in the table row labelled 'Nickname'; legacy markup has no <label> wiring.",
+            "strategy": "label_anchor",
+            "anchor_text": "Nickname",
+            "relation": "same_row_following",
+            "control": "input"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.7,
+            "rationale": "Stable, non-generated attribute(s) on the control.",
+            "strategy": "attribute",
+            "tag": "input",
+            "attributes": {
+              "name": "nck"
+            }
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.3,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "strategy": "structural",
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(2) > input:nth-of-type(1)"
+          }
+        ],
+        "review_required": false
+      },
+      "value": {
+        "from_input": "nickname"
+      },
+      "risk": "reversible",
+      "intent_risk": "reversible",
+      "submits_form": false,
+      "element_role": "textbox",
+      "route_before": "/members/:member_id/subaccounts/new",
+      "route_after": "/members/:member_id/subaccounts/new",
+      "frames_after": [
+        {
+          "frame_path": [
+            {
+              "name": "acctFrame"
+            }
+          ],
+          "route": "/blank"
+        }
+      ],
+      "dialog_states": [],
+      "recoveries": [],
+      "description": "Type input nickname into 'Nickname'",
+      "rationale": "Enter the account nickname.",
+      "elapsed_ms": 9,
+      "dead_end": false
+    },
+    {
+      "index": 6,
+      "provenance": "model",
+      "action": "click",
+      "target": {
+        "description": "Click button 'Continue'",
+        "frame_path": [],
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.9,
+            "rationale": "Accessible role 'button' with name from value; survives layout and markup changes.",
+            "strategy": "role_name",
+            "role": "button",
+            "name": "Continue",
+            "exact": true
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.3,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "strategy": "structural",
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1) > input:nth-of-type(1)"
+          }
+        ],
+        "review_required": false
+      },
+      "risk": "reversible",
+      "intent_risk": "reversible",
+      "submits_form": true,
+      "element_role": "button",
+      "route_before": "/members/:member_id/subaccounts/new",
+      "route_after": "/members/:member_id/subaccounts/review",
+      "frames_after": [
+        {
+          "frame_path": [
+            {
+              "name": "acctFrame"
+            }
+          ],
+          "route": "/blank"
+        }
+      ],
+      "dialog_states": [],
+      "recoveries": [],
+      "description": "Click button 'Continue'",
+      "rationale": "Click Continue to proceed to the review screen.",
+      "elapsed_ms": 51,
+      "dead_end": false
+    }
+  ],
+  "final_route": "/members/:member_id/subaccounts/review",
+  "final_frames": [
+    {
+      "frame_path": [
+        {
+          "name": "acctFrame"
+        }
+      ],
+      "route": "/blank"
+    }
+  ],
+  "checkpoint": [
+    {
+      "label_text": "Member ID",
+      "frame_path": [],
+      "equals_input": "member_id",
+      "vocab_from_input": null,
+      "equals_text": null
+    },
+    {
+      "label_text": "Nickname",
+      "frame_path": [],
+      "equals_input": "nickname",
+      "vocab_from_input": null,
+      "equals_text": null
+    }
+  ],
+  "outputs": [],
+  "extract": [],
+  "observed_states": [],
+  "routes_seen": [
+    "/blank",
+    "/login",
+    "/members/:member_id/subaccounts/new",
+    "/members/:member_id/subaccounts/review",
+    "/members/lookup",
+    "/members/search"
+  ],
+  "extract_after": {}
+}

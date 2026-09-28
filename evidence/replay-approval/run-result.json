@@ -1,0 +1,66 @@
+{
+  "run_id": "rep-20260927T204936-733a6b",
+  "mode": "replay",
+  "capability": "open-sub-account@2.0.0",
+  "content_hash": "sha256:434c404f29fc850a348c07b97b575d2a656d2c2035803541544e2f0c0f312e0a",
+  "tenant_id": "tenant-a",
+  "started_at": "2026-09-27T20:49:36.460Z",
+  "finished_at": "2026-09-27T20:49:39.243Z",
+  "duration_ms": 2782,
+  "evidence": [
+    {
+      "kind": "screenshot",
+      "path": "screenshots/2178488-c1-approval.png",
+      "note": "masked; c1-approval"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/2178488-c1-approval.html",
+      "note": "sanitized; c1-approval"
+    },
+    {
+      "kind": "screenshot",
+      "path": "screenshots/2179131-final-state.png",
+      "note": "masked; final-state"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/2179131-final-state.html",
+      "note": "sanitized; final-state"
+    },
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [
+    {
+      "intervention_id": "iv-bfafdfc2",
+      "kind": "approval_required",
+      "step_id": "c1",
+      "reason_code": "approval_required",
+      "resolution": "approve",
+      "operator_id": "supervisor-1",
+      "human_actions": 0
+    }
+  ],
+  "overrides": [],
+  "status": "success",
+  "outputs": {
+    "confirmation_number": "CNF-004821",
+    "new_account_last4": "⟦pii_low#ef0ee591⟧"
+  },
+  "checkpoint": "Confirmation page shows 'Sub-Account Opened' for the input member",
+  "recoveries": [],
+  "drift": [],
+  "completed_by": {
+    "s1": "automation",
+    "s2": "automation",
+    "s3": "automation",
+    "s4": "automation",
+    "s5": "automation",
+    "s6": "automation",
+    "c1": "automation"
+  }
+}

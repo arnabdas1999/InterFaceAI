@@ -1,0 +1,33 @@
+{
+  "run_id": "val-20260927T204859-29e3f9",
+  "mode": "validation",
+  "capability": "open-sub-account@2.0.0",
+  "content_hash": "sha256:434c404f29fc850a348c07b97b575d2a656d2c2035803541544e2f0c0f312e0a",
+  "tenant_id": "tenant-a",
+  "started_at": "2026-09-27T20:48:59.673Z",
+  "finished_at": "2026-09-27T20:49:01.588Z",
+  "duration_ms": 1915,
+  "evidence": [
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [],
+  "overrides": [],
+  "status": "success",
+  "outputs": {},
+  "checkpoint": "validated up to (not including) irreversible step c1",
+  "recoveries": [],
+  "drift": [],
+  "completed_by": {
+    "s1": "automation",
+    "s2": "automation",
+    "s3": "automation",
+    "s4": "automation",
+    "s5": "automation",
+    "s6": "automation"
+  },
+  "validation_stop": "c1"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "iv-bfafdfc2",
+  "run_id": "rep-20260927T204936-733a6b",
+  "kind": "approval_required",
+  "capability": "open-sub-account@2.0.0",
+  "tenant_id": "tenant-a",
+  "step_id": "c1",
+  "step_description": "Click 'Open Account' to commit the new sub-account",
+  "bound_action": "click 'Open Account' (risk irreversible)",
+  "bound_action_hash": "sha256:aa7f23815a6130a5900e7ff2c2bd32dd",
+  "last_checkpoint_step": "s6",
+  "reason_code": "approval_required",
+  "explanation": "Irreversible step 'Click 'Open Account' to commit the new sub-account' requires a human decision before automation performs it.",
+  "route": "/members/⟦input:member_id#c2b3fa8a⟧/subaccounts/review",
+  "screenshot": "screenshots/2178488-c1-approval.png",
+  "control": {
+    "session_id": "sess-182980ea6d",
+    "state": "AUTOMATION_ACTIVE",
+    "owner": "automation",
+    "expected_owner": "automation",
+    "version": 5
+  },
+  "permitted_resolutions": [
+    "approve",
+    "deny",
+    "abort"
+  ],
+  "claim_deadline": 1790542778.6485336,
+  "max_human_active_s": 900,
+  "approval_valid_s": 300,
+  "created_at": 1790542178.6485336,
+  "notified_at": 1790542178.9594493,
+  "resolved_at": 1790542178.8163607,
+  "operator_id": "supervisor-1",
+  "resolution": {
+    "kind": "approve",
+    "operator_id": "supervisor-1",
+    "note": "[scripted_stand_in] confirmed with the member",
+    "action_hash": "sha256:aa7f23815a6130a5900e7ff2c2bd32dd"
+  },
+  "status": "resolved",
+  "human_actions": []
+}

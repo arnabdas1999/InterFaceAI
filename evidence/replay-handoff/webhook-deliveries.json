@@ -1,0 +1,20 @@
+{
+  "note": "Intervention routed to a webhook; the receiver verified the HMAC signature and timestamp of each delivery",
+  "sender": [
+    {
+      "intervention_id": "iv-c39a2c05",
+      "status": 204,
+      "attempt": 1
+    }
+  ],
+  "receiver": [
+    {
+      "signature_valid": true,
+      "type": "intervention.requested",
+      "intervention_id": "iv-c39a2c05",
+      "kind": "unknown_state",
+      "tenant_id": "tenant-a",
+      "console": "http://127.0.0.1:8766/console/iv-c39a2c05"
+    }
+  ]
+}

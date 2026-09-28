@@ -1,0 +1,53 @@
+{
+  "run_id": "rep-20260927T205027-7a4bbe",
+  "mode": "replay",
+  "capability": "read-savings-balance@1.0.0",
+  "content_hash": "sha256:12c98921de5affb0e32472961398f8c95d2aa27d408030c0c04b14693880e6e3",
+  "tenant_id": "tenant-b",
+  "started_at": "2026-09-27T20:50:27.954Z",
+  "finished_at": "2026-09-27T20:50:39.400Z",
+  "duration_ms": 11446,
+  "evidence": [
+    {
+      "kind": "screenshot",
+      "path": "screenshots/2239280-s2-locator-not-found.png",
+      "note": "masked; s2-locator_not_found"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/2239280-s2-locator-not-found.html",
+      "note": "sanitized; s2-locator_not_found"
+    },
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [],
+  "overrides": [],
+  "status": "failure",
+  "category": "hard_failure",
+  "code": "locator_not_found",
+  "message": "s2: no candidate matched: Click button 'Search'",
+  "retryable": false,
+  "side_effect_state": "none",
+  "step_id": "s2",
+  "expected": "Click button 'Search'",
+  "observed": "role_name=0; structural=0",
+  "attempts": 1,
+  "locator_diagnostics": [
+    {
+      "strategy": "role_name",
+      "match_count": 0,
+      "detail": "role=button name='Search'"
+    },
+    {
+      "strategy": "structural",
+      "match_count": 0,
+      "detail": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1) > input:nth-of-type(1)"
+    }
+  ],
+  "recoveries": [],
+  "drift": []
+}

@@ -1,0 +1,24 @@
+{
+  "capability": "read-savings-balance@1.0.0",
+  "runs": 10,
+  "passed": 10,
+  "outputs_identical": true,
+  "drift_signals": 0,
+  "duration_ms": {
+    "min": 1964,
+    "max": 6787,
+    "mean": 3595
+  },
+  "run_ids": [
+    "rep-20260927T204940-cb090f",
+    "rep-20260927T204942-3177c8",
+    "rep-20260927T204944-677ecc",
+    "rep-20260927T204949-90430d",
+    "rep-20260927T204956-67244a",
+    "rep-20260927T205003-75e862",
+    "rep-20260927T205008-8fe947",
+    "rep-20260927T205011-2a2164",
+    "rep-20260927T205014-5c66f2",
+    "rep-20260927T205017-d0482f"
+  ]
+}

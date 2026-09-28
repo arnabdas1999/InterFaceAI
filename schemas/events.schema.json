@@ -1,0 +1,142 @@
+{
+  "$id": "https://github.com/interface-cua/schemas/events.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "capability": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Capability"
+    },
+    "control_owner": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Control Owner"
+    },
+    "data": {
+      "additionalProperties": true,
+      "title": "Data",
+      "type": "object"
+    },
+    "lease_version": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Lease Version"
+    },
+    "mode": {
+      "enum": [
+        "discovery",
+        "replay",
+        "validation",
+        "human"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "seq": {
+      "title": "Seq",
+      "type": "integer"
+    },
+    "session_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Session Id"
+    },
+    "step_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Step Id"
+    },
+    "summary": {
+      "title": "Summary",
+      "type": "string"
+    },
+    "ts": {
+      "title": "Ts",
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "run_started",
+        "session_started",
+        "observation",
+        "model_decision",
+        "model_decision_invalid",
+        "policy_decision",
+        "action_executed",
+        "action_failed",
+        "action_blocked",
+        "state_detected",
+        "recovery_applied",
+        "checkpoint",
+        "extract",
+        "dialog",
+        "request_blocked",
+        "popup_blocked",
+        "drift",
+        "intervention_requested",
+        "intervention_resolved",
+        "lease_transition",
+        "human_action",
+        "human_input_blocked",
+        "resume_point",
+        "verification",
+        "compile",
+        "validation_stop",
+        "run_finished",
+        "note"
+      ],
+      "title": "Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "ts",
+    "seq",
+    "run_id",
+    "mode",
+    "type",
+    "summary"
+  ],
+  "title": "RunEvent",
+  "type": "object"
+}

@@ -1,0 +1,12 @@
+{
+  "operator": "a real person (the author), signed in to the operator console as `alice` with a bearer token",
+  "how": "browser: the operator console page (masked snapshot -> Claim live session -> LIVE view); clicks forwarded to the same live session",
+  "steps": [
+    "21:08:59-21:09:01 two inputs to the headed window before claiming: blocked by the input fence (human_input_blocked)",
+    "21:09:49 claimed the session (lease v3 -> v4, HUMAN_ACTIVE)",
+    "21:09:54 clicked 'I have a permissible purpose' on the live view",
+    "21:09:58 clicked 'Acknowledge' on the live view",
+    "21:10:31 handed back: resume, with a note (lease -> RESUMING -> AUTOMATION_ACTIVE)"
+  ],
+  "result": "same session before and after (same_session: true); resume-point resolution retried s3; replay finished: success"
+}

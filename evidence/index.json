@@ -1,0 +1,207 @@
+[
+  {
+    "folder": "discovery-success",
+    "proves": "Genuine LLM (gemini-3.8-flash) discovery run compiled into read-savings-balance@1.0.0",
+    "run_id": "disc-20260927T194320-2cb1b7",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua discover --request requests/read-savings-balance.json --example member_id=12345",
+    "usage": {
+      "model": "gemini-3.8-flash",
+      "decisions": 8,
+      "input_tokens": 16554,
+      "output_tokens": 425,
+      "latency_ms": 98740
+    }
+  },
+  {
+    "folder": "discovery-open-sub-account",
+    "proves": "Genuine LLM (gemini-3.7-flash) discovery run compiled into open-sub-account@1.0.0",
+    "run_id": "disc-20260927T194811-b16f52",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua discover --request requests/open-sub-account.json --example member_id=12345 --example product=money_market --example nickname=Vacation Fund",
+    "usage": {
+      "model": "gemini-3.7-flash",
+      "decisions": 7,
+      "input_tokens": 18769,
+      "output_tokens": 469,
+      "latency_ms": 83798
+    }
+  },
+  {
+    "folder": "discovery-desktop",
+    "proves": "Genuine LLM (gemini-3.6-flash) discovery run compiled into desktop-read-savings-balance@1.0.0",
+    "run_id": "disc-20260927T204319-164236",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua discover --request requests/desktop-read-savings-balance.json --example member_id=12345",
+    "usage": {
+      "model": "gemini-3.6-flash",
+      "decisions": 5,
+      "input_tokens": 12624,
+      "output_tokens": 379,
+      "latency_ms": 25665
+    }
+  },
+  {
+    "folder": "validation",
+    "proves": "read-savings-balance@1.0.0 validated automatically then approved (hash-bound)",
+    "run_id": "val-20260927T204851-6f307c,val-20260927T204853-4d9cc3,val-20260927T204856-eb6fec",
+    "status": "approved",
+    "code": null,
+    "command": "uv run cua validate read-savings-balance --version 1.0.0 ... && uv run cua approve read-savings-balance --version 1.0.0 --approver demo-reviewer"
+  },
+  {
+    "folder": "validation",
+    "proves": "open-sub-account@2.0.0 validated automatically then approved (hash-bound)",
+    "run_id": "val-20260927T204857-43ba68,val-20260927T204859-29e3f9,val-20260927T204901-28c64f",
+    "status": "approved",
+    "code": null,
+    "command": "uv run cua validate open-sub-account --version 2.0.0 ... && uv run cua approve open-sub-account --version 2.0.0 --approver demo-reviewer"
+  },
+  {
+    "folder": "validation",
+    "proves": "desktop-read-savings-balance@1.0.0 validated automatically then approved (hash-bound)",
+    "run_id": "val-20260927T204903-8d01aa,val-20260927T204908-d37978,val-20260927T204913-2c60cc",
+    "status": "approved",
+    "code": null,
+    "command": "uv run cua validate desktop-read-savings-balance --version 1.0.0 ... && uv run cua approve desktop-read-savings-balance --version 1.0.0 --approver demo-reviewer"
+  },
+  {
+    "folder": "replay-success",
+    "proves": "Deterministic replay with a new input returns a typed money output; no model events",
+    "run_id": "rep-20260927T204917-23e868",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua replay read-savings-balance --input member_id=67890"
+  },
+  {
+    "folder": "replay-business-outcome",
+    "proves": "'No such member' is a business outcome, not a crash",
+    "run_id": "rep-20260927T204920-1ffc2b",
+    "status": "business_outcome",
+    "code": "member_not_found",
+    "command": "uv run cua replay read-savings-balance --input member_id=99999"
+  },
+  {
+    "folder": "replay-recovered",
+    "proves": "Session expiry (re-auth + re-entry), slow load, transient HTTP 500 and a known interstitial are recovered within bounds",
+    "run_id": "rep-20260927T204922-bafbdc",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua target faults set session_expire --param skip=2 (+ slow_search, http_500 --param route=lookup, system_notice) && uv run cua replay ..."
+  },
+  {
+    "folder": "replay-hard-failure",
+    "proves": "Permission denial is a non-retryable hard failure with step/expected/observed and masked evidence",
+    "run_id": "rep-20260927T204929-d4b8c0",
+    "status": "failure",
+    "code": "permission_denied",
+    "command": "uv run cua target faults set permission_denied && uv run cua replay read-savings-balance --input member_id=12345"
+  },
+  {
+    "folder": "replay-rejected",
+    "proves": "Malformed input is rejected pre-flight; no browser session is opened",
+    "run_id": "rep-20260927T204930-e8e7f4",
+    "status": "rejected",
+    "code": "input_contract_violation",
+    "command": "uv run cua replay read-savings-balance --input member_id=12ab"
+  },
+  {
+    "folder": "replay-handoff-human",
+    "proves": "A real person claims the paused live session in the operator console, acts on the same page, and hands back; the fence blocked input before the claim",
+    "run_id": "rep-20261003T210850-f0ded1",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua replay read-savings-balance --input member_id=12345 --escalate --headed  (then the console: sign in, claim, act, hand back)"
+  },
+  {
+    "folder": "replay-handoff",
+    "proves": "Unknown modal -> intervention -> operator claims the SAME live session (fenced lease) -> actions journaled -> handback -> resume point -> success",
+    "run_id": "rep-20260927T204931-eaf52f",
+    "status": "success",
+    "code": null,
+    "command": "terminal 1: uv run cua replay read-savings-balance --input member_id=12345 --escalate ; terminal 2: uv run cua operator ..."
+  },
+  {
+    "folder": "replay-approval",
+    "proves": "Irreversible commit paused for a single-use, hash-bound approval; exactly one commit after approval",
+    "run_id": "rep-20260927T204936-733a6b",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua replay open-sub-account --input member_id=67890 --input product=share_certificate --input nickname='CD Ladder' --escalate"
+  },
+  {
+    "folder": "stability",
+    "proves": "10 consecutive replays, pass count and timing spread",
+    "run_id": "-",
+    "status": "10/10 success",
+    "code": null,
+    "command": "uv run cua stability read-savings-balance --input member_id=12345 --runs 10"
+  },
+  {
+    "folder": "replay-tenant-b",
+    "proves": "Artifact recorded on tenant-a runs on tenant-b (same product, other vocabulary) with one reviewed, hash-approved override patch for a structurally different control",
+    "run_id": "rep-20260927T205025-d6368c",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua replay read-savings-balance --tenant tenant-b --input member_id=67890"
+  },
+  {
+    "folder": "replay-tenant-b-no-override",
+    "proves": "Why the override exists: without it the recorded search control is not found on tenant-b, and the failure names the step and each locator candidate's match count",
+    "run_id": "rep-20260927T205027-7a4bbe",
+    "status": "failure",
+    "code": "locator_not_found",
+    "command": "(tenant-b with override_refs removed) uv run cua replay read-savings-balance --tenant tenant-b --input member_id=67890"
+  },
+  {
+    "folder": "replay-assisted-fallback",
+    "proves": "Opt-in bounded fallback: one policy-checked model suggestion found tenant-b's search control; the run succeeded and the new locator was saved as an UNAPPROVED override proposal (the artifact is unchanged)",
+    "run_id": "rep-20260927T205039-194c56",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua replay read-savings-balance --tenant tenant-b --input member_id=67890 --assisted-fallback"
+  },
+  {
+    "folder": "replay-legacy-frameset",
+    "proves": "The same artifact on tenant-c, which runs the product's classic frameset UI: the legacy-web adapter anchors frame paths, URL checks and navigation to the application frame",
+    "run_id": "rep-20260927T205057-4119d1",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua replay read-savings-balance --tenant tenant-c --input member_id=67890"
+  },
+  {
+    "folder": "replay-drift",
+    "proves": "A re-captioned control: the run still succeeds through a lower-ranked locator and reports locator_fallback_used (drift becomes visible before it becomes failure)",
+    "run_id": "rep-20260927T205104-6e6e36",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua target faults set caption_drift && uv run cua replay read-savings-balance --input member_id=12345"
+  },
+  {
+    "folder": "replay-unknown-state",
+    "proves": "Unknown modal with escalation_mode=fail_fast: failure/unknown_state with evidence; the state is mined into a reviewable catalog candidate (see catalog-candidates/)",
+    "run_id": "rep-20260927T205110-0388de",
+    "status": "failure",
+    "code": "unknown_state",
+    "command": "uv run cua target faults set unknown_modal && uv run cua replay read-savings-balance --input member_id=12345"
+  },
+  {
+    "folder": "replay-desktop",
+    "proves": "Deterministic replay of the desktop capability through UI Automation (masked window screenshots; sanitized UIA tree as the failure signal)",
+    "run_id": "rep-20260927T210546-345ec0",
+    "status": "success",
+    "code": null,
+    "command": "uv run cua replay desktop-read-savings-balance --tenant tenant-d --input member_id=67890"
+  },
+  {
+    "folder": "drift",
+    "proves": "Replay health per capability x tenant over every evidence run; alerts on fallback-locator use",
+    "run_id": "-",
+    "status": "23 runs",
+    "code": null,
+    "command": "uv run cua drift report --runs-dir evidence --out evidence/drift/drift-report.md"
+  }
+]

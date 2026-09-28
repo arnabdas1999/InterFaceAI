@@ -1,0 +1,33 @@
+{
+  "capability": "open-sub-account@2.0.0",
+  "content_hash": "sha256:434c404f29fc850a348c07b97b575d2a656d2c2035803541544e2f0c0f312e0a",
+  "mode": "stop_before_irreversible",
+  "runs": [
+    {
+      "kind": "good",
+      "run_id": "val-20260927T204857-43ba68",
+      "status": "success",
+      "passed": true,
+      "outputs_match_discovery": null,
+      "validation_stop": "c1"
+    },
+    {
+      "kind": "good",
+      "run_id": "val-20260927T204859-29e3f9",
+      "status": "success",
+      "passed": true,
+      "outputs_match_discovery": null,
+      "validation_stop": "c1"
+    },
+    {
+      "kind": "negative",
+      "expected": "member_not_found",
+      "run_id": "val-20260927T204901-28c64f",
+      "status": "business_outcome",
+      "code": "member_not_found",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "final_status": "approved"
+}

@@ -1,0 +1,31 @@
+{
+  "operator_kind": "scripted_stand_in",
+  "intervention_id": "iv-bfafdfc2",
+  "log": [
+    {
+      "step": "resolve",
+      "status": 200,
+      "body": {
+        "status": "resolved",
+        "resolution": {
+          "kind": "approve",
+          "operator_id": "supervisor-1",
+          "note": "[scripted_stand_in] confirmed with the member",
+          "step_id": null,
+          "action_hash": "sha256:aa7f23815a6130a5900e7ff2c2bd32dd"
+        },
+        "control": {
+          "run_id": "rep-20260927T204936-733a6b",
+          "session_id": "sess-182980ea6d",
+          "state": "AUTOMATION_ACTIVE",
+          "owner": "automation",
+          "expected_owner": "automation",
+          "version": 5,
+          "expires_at": null,
+          "last_heartbeat": null,
+          "open_intervention": null
+        }
+      }
+    }
+  ]
+}

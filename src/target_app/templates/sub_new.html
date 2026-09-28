@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block body %}
+<table class="grid" cellspacing="0" width="520">
+<tr><td colspan="2" class="lbl">{{ b.open_sub_account }} &mdash; {{ b.member }} {{ mid }}</td></tr>
+{% if err %}<tr><td colspan="2"><div class="banner-err">{{ err }}</div></td></tr>{% endif %}
+<form method="post" action="/members/{{ mid }}/subaccounts/review">
+<tr><td class="lbl" width="35%">Product</td><td><select name="prd">
+<option value="">-- select --</option>
+{% for p in products %}<option value="{{ p }}">{{ b[p] }}</option>{% endfor %}
+</select></td></tr>
+<tr><td class="lbl">Nickname</td><td><input type="text" name="nck" size="24" maxlength="24"></td></tr>
+<tr><td colspan="2" align="right"><input type="submit" value="Continue"> <a href="/members/{{ mid }}">Cancel</a></td></tr>
+</form>
+</table>
+{% endblock %}

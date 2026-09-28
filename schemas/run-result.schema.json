@@ -1,0 +1,1110 @@
+{
+  "$defs": {
+    "AbortedResult": {
+      "additionalProperties": false,
+      "properties": {
+        "actor": {
+          "title": "Actor",
+          "type": "string"
+        },
+        "capability": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capability"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "content_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Hash"
+        },
+        "duration_ms": {
+          "title": "Duration Ms",
+          "type": "integer"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "finished_at": {
+          "title": "Finished At",
+          "type": "string"
+        },
+        "interventions": {
+          "items": {
+            "$ref": "#/$defs/InterventionSummary"
+          },
+          "title": "Interventions",
+          "type": "array"
+        },
+        "last_checkpoint_step": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Checkpoint Step"
+        },
+        "mode": {
+          "enum": [
+            "discovery",
+            "replay",
+            "validation"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "overrides": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Overrides",
+          "type": "array"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "side_effect_state": {
+          "default": "none",
+          "enum": [
+            "none",
+            "possible",
+            "committed"
+          ],
+          "title": "Side Effect State",
+          "type": "string"
+        },
+        "started_at": {
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "const": "aborted",
+          "default": "aborted",
+          "title": "Status",
+          "type": "string"
+        },
+        "tenant_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tenant Id"
+        },
+        "usage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Usage"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "run_id",
+        "mode",
+        "started_at",
+        "finished_at",
+        "duration_ms",
+        "code",
+        "actor",
+        "reason"
+      ],
+      "title": "AbortedResult",
+      "type": "object"
+    },
+    "BusinessOutcomeResult": {
+      "additionalProperties": false,
+      "properties": {
+        "capability": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capability"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "content_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Hash"
+        },
+        "details": {
+          "additionalProperties": true,
+          "title": "Details",
+          "type": "object"
+        },
+        "duration_ms": {
+          "title": "Duration Ms",
+          "type": "integer"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "finished_at": {
+          "title": "Finished At",
+          "type": "string"
+        },
+        "interventions": {
+          "items": {
+            "$ref": "#/$defs/InterventionSummary"
+          },
+          "title": "Interventions",
+          "type": "array"
+        },
+        "message": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Message"
+        },
+        "mode": {
+          "enum": [
+            "discovery",
+            "replay",
+            "validation"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "overrides": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Overrides",
+          "type": "array"
+        },
+        "recoveries": {
+          "items": {
+            "$ref": "#/$defs/Recovery"
+          },
+          "title": "Recoveries",
+          "type": "array"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "started_at": {
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "const": "business_outcome",
+          "default": "business_outcome",
+          "title": "Status",
+          "type": "string"
+        },
+        "step_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Step Id"
+        },
+        "tenant_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tenant Id"
+        },
+        "usage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Usage"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "run_id",
+        "mode",
+        "started_at",
+        "finished_at",
+        "duration_ms",
+        "code"
+      ],
+      "title": "BusinessOutcomeResult",
+      "type": "object"
+    },
+    "DriftSignal": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "locator_fallback_used",
+            "fingerprint_minor_mismatch",
+            "assisted_fallback"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "detail": {
+          "default": "",
+          "title": "Detail",
+          "type": "string"
+        },
+        "step_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Step Id"
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "title": "DriftSignal",
+      "type": "object"
+    },
+    "EvidenceRef": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "screenshot",
+            "dom_snapshot",
+            "trace",
+            "events",
+            "review"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "path"
+      ],
+      "title": "EvidenceRef",
+      "type": "object"
+    },
+    "FailureResult": {
+      "additionalProperties": false,
+      "properties": {
+        "attempts": {
+          "default": 1,
+          "title": "Attempts",
+          "type": "integer"
+        },
+        "capability": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capability"
+        },
+        "category": {
+          "const": "hard_failure",
+          "default": "hard_failure",
+          "title": "Category",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "content_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Hash"
+        },
+        "drift": {
+          "items": {
+            "$ref": "#/$defs/DriftSignal"
+          },
+          "title": "Drift",
+          "type": "array"
+        },
+        "duration_ms": {
+          "title": "Duration Ms",
+          "type": "integer"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "expected": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected"
+        },
+        "finished_at": {
+          "title": "Finished At",
+          "type": "string"
+        },
+        "interventions": {
+          "items": {
+            "$ref": "#/$defs/InterventionSummary"
+          },
+          "title": "Interventions",
+          "type": "array"
+        },
+        "locator_diagnostics": {
+          "items": {
+            "$ref": "#/$defs/LocatorDiagnostic"
+          },
+          "title": "Locator Diagnostics",
+          "type": "array"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "discovery",
+            "replay",
+            "validation"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "observed": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed"
+        },
+        "overrides": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Overrides",
+          "type": "array"
+        },
+        "recoveries": {
+          "items": {
+            "$ref": "#/$defs/Recovery"
+          },
+          "title": "Recoveries",
+          "type": "array"
+        },
+        "retryable": {
+          "title": "Retryable",
+          "type": "boolean"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "side_effect_state": {
+          "enum": [
+            "none",
+            "possible",
+            "committed"
+          ],
+          "title": "Side Effect State",
+          "type": "string"
+        },
+        "started_at": {
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "const": "failure",
+          "default": "failure",
+          "title": "Status",
+          "type": "string"
+        },
+        "step_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Step Id"
+        },
+        "tenant_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tenant Id"
+        },
+        "usage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Usage"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "run_id",
+        "mode",
+        "started_at",
+        "finished_at",
+        "duration_ms",
+        "code",
+        "message",
+        "retryable",
+        "side_effect_state"
+      ],
+      "title": "FailureResult",
+      "type": "object"
+    },
+    "FieldError": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "title": "Field",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "message"
+      ],
+      "title": "FieldError",
+      "type": "object"
+    },
+    "InterventionSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "human_actions": {
+          "default": 0,
+          "title": "Human Actions",
+          "type": "integer"
+        },
+        "intervention_id": {
+          "title": "Intervention Id",
+          "type": "string"
+        },
+        "kind": {
+          "title": "Kind",
+          "type": "string"
+        },
+        "operator_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Operator Id"
+        },
+        "reason_code": {
+          "title": "Reason Code",
+          "type": "string"
+        },
+        "resolution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Resolution"
+        },
+        "step_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Step Id"
+        }
+      },
+      "required": [
+        "intervention_id",
+        "kind",
+        "step_id",
+        "reason_code",
+        "resolution",
+        "operator_id"
+      ],
+      "title": "InterventionSummary",
+      "type": "object"
+    },
+    "LocatorDiagnostic": {
+      "additionalProperties": false,
+      "properties": {
+        "detail": {
+          "default": "",
+          "title": "Detail",
+          "type": "string"
+        },
+        "match_count": {
+          "title": "Match Count",
+          "type": "integer"
+        },
+        "strategy": {
+          "title": "Strategy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "strategy",
+        "match_count"
+      ],
+      "title": "LocatorDiagnostic",
+      "type": "object"
+    },
+    "Recovery": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "detail": {
+          "default": "",
+          "title": "Detail",
+          "type": "string"
+        },
+        "state_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "State Id"
+        },
+        "step_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Step Id"
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "title": "Recovery",
+      "type": "object"
+    },
+    "RejectedResult": {
+      "additionalProperties": false,
+      "properties": {
+        "capability": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capability"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "content_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Hash"
+        },
+        "duration_ms": {
+          "title": "Duration Ms",
+          "type": "integer"
+        },
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/FieldError"
+          },
+          "title": "Errors",
+          "type": "array"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "finished_at": {
+          "title": "Finished At",
+          "type": "string"
+        },
+        "interventions": {
+          "items": {
+            "$ref": "#/$defs/InterventionSummary"
+          },
+          "title": "Interventions",
+          "type": "array"
+        },
+        "mode": {
+          "enum": [
+            "discovery",
+            "replay",
+            "validation"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "overrides": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Overrides",
+          "type": "array"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "session_opened": {
+          "const": false,
+          "default": false,
+          "title": "Session Opened",
+          "type": "boolean"
+        },
+        "started_at": {
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "const": "rejected",
+          "default": "rejected",
+          "title": "Status",
+          "type": "string"
+        },
+        "tenant_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tenant Id"
+        },
+        "usage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Usage"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "run_id",
+        "mode",
+        "started_at",
+        "finished_at",
+        "duration_ms",
+        "code"
+      ],
+      "title": "RejectedResult",
+      "type": "object"
+    },
+    "SuccessResult": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Artifact"
+        },
+        "capability": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capability"
+        },
+        "checkpoint": {
+          "title": "Checkpoint",
+          "type": "string"
+        },
+        "completed_by": {
+          "additionalProperties": {
+            "enum": [
+              "automation",
+              "human"
+            ],
+            "type": "string"
+          },
+          "title": "Completed By",
+          "type": "object"
+        },
+        "content_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Hash"
+        },
+        "drift": {
+          "items": {
+            "$ref": "#/$defs/DriftSignal"
+          },
+          "title": "Drift",
+          "type": "array"
+        },
+        "duration_ms": {
+          "title": "Duration Ms",
+          "type": "integer"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceRef"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "finished_at": {
+          "title": "Finished At",
+          "type": "string"
+        },
+        "interventions": {
+          "items": {
+            "$ref": "#/$defs/InterventionSummary"
+          },
+          "title": "Interventions",
+          "type": "array"
+        },
+        "mode": {
+          "enum": [
+            "discovery",
+            "replay",
+            "validation"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "outputs": {
+          "additionalProperties": true,
+          "title": "Outputs",
+          "type": "object"
+        },
+        "overrides": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Overrides",
+          "type": "array"
+        },
+        "recoveries": {
+          "items": {
+            "$ref": "#/$defs/Recovery"
+          },
+          "title": "Recoveries",
+          "type": "array"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "started_at": {
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "const": "success",
+          "default": "success",
+          "title": "Status",
+          "type": "string"
+        },
+        "tenant_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tenant Id"
+        },
+        "usage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Usage"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "validation_stop": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Validation Stop"
+        }
+      },
+      "required": [
+        "run_id",
+        "mode",
+        "started_at",
+        "finished_at",
+        "duration_ms",
+        "outputs",
+        "checkpoint"
+      ],
+      "title": "SuccessResult",
+      "type": "object"
+    },
+    "Usage": {
+      "additionalProperties": false,
+      "properties": {
+        "decisions": {
+          "title": "Decisions",
+          "type": "integer"
+        },
+        "input_tokens": {
+          "title": "Input Tokens",
+          "type": "integer"
+        },
+        "latency_ms": {
+          "title": "Latency Ms",
+          "type": "integer"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "output_tokens": {
+          "title": "Output Tokens",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "model",
+        "decisions",
+        "input_tokens",
+        "output_tokens",
+        "latency_ms"
+      ],
+      "title": "Usage",
+      "type": "object"
+    }
+  },
+  "$id": "https://github.com/interface-cua/schemas/run-result.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Wrapper used to generate one JSON Schema for the union.",
+  "properties": {
+    "result": {
+      "discriminator": {
+        "mapping": {
+          "aborted": "#/$defs/AbortedResult",
+          "business_outcome": "#/$defs/BusinessOutcomeResult",
+          "failure": "#/$defs/FailureResult",
+          "rejected": "#/$defs/RejectedResult",
+          "success": "#/$defs/SuccessResult"
+        },
+        "propertyName": "status"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/SuccessResult"
+        },
+        {
+          "$ref": "#/$defs/BusinessOutcomeResult"
+        },
+        {
+          "$ref": "#/$defs/RejectedResult"
+        },
+        {
+          "$ref": "#/$defs/FailureResult"
+        },
+        {
+          "$ref": "#/$defs/AbortedResult"
+        }
+      ],
+      "title": "Result"
+    }
+  },
+  "required": [
+    "result"
+  ],
+  "title": "RunResultEnvelope",
+  "type": "object"
+}

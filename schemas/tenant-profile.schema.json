@@ -1,0 +1,126 @@
+{
+  "$id": "https://github.com/interface-cua/schemas/tenant-profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "app_profile": {
+      "title": "App Profile",
+      "type": "string"
+    },
+    "base_url": {
+      "title": "Base Url",
+      "type": "string"
+    },
+    "data_classification": {
+      "default": "production",
+      "enum": [
+        "synthetic",
+        "sandbox",
+        "production"
+      ],
+      "title": "Data Classification",
+      "type": "string"
+    },
+    "desktop_launch": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Desktop Launch"
+    },
+    "display_name": {
+      "title": "Display Name",
+      "type": "string"
+    },
+    "override_refs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Override Refs",
+      "type": "array"
+    },
+    "policy_file": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Policy File"
+    },
+    "product_version": {
+      "title": "Product Version",
+      "type": "string"
+    },
+    "root_frame": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Root Frame"
+    },
+    "secret_ref": {
+      "title": "Secret Ref",
+      "type": "string"
+    },
+    "surface": {
+      "default": "web",
+      "enum": [
+        "web",
+        "legacy-web",
+        "desktop"
+      ],
+      "title": "Surface",
+      "type": "string"
+    },
+    "tenant_id": {
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "vocabulary": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Vocabulary",
+      "type": "object"
+    },
+    "window_title": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Window Title"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "display_name",
+    "app_profile",
+    "base_url",
+    "product_version",
+    "secret_ref"
+  ],
+  "title": "TenantProfile",
+  "type": "object"
+}

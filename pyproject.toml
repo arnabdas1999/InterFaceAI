@@ -1,0 +1,80 @@
+[project]
+name = "interface-cua"
+version = "0.1.0"
+description = "Computer-use automation: LLM discovery -> typed capability artifact -> deterministic replay, with guardrails and human handoff."
+authors = [{ name = "arnabdas1999", email = "darnab680@gmail.com" }]
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=1.8.0",
+    "fastapi>=0.141.1",
+    "httpx>=0.28",
+    "jinja2>=3.1",
+    "jsonschema>=4.25",
+    "openai>=3.19.2",
+    "pillow>=12.3.0",
+    "playwright>=1.63.0",
+    "pydantic>=2.13.5",
+    "python-dotenv>=1.2",
+    "python-multipart>=0.0.20",
+    "typer>=0.27.2",
+    "uiautomation>=2.0 ; sys_platform == 'win32'",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+cua = "interface_cua.cli:app"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = ["interface_cua", "target_app"]
+module-root = "src"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.3.1",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-timeout>=2.4.0",
+    "ruff>=0.16.9",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+markers = [
+    "unit: pure logic, no browser",
+    "integration: drives the local synthetic target through the browser adapter",
+    "e2e: full demo flows",
+    "live_llm: needs ANTHROPIC_API_KEY (skipped otherwise)",
+]
+
+[tool.ruff]
+line-length = 140
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003", "B008", "SIM105"]
+
+[tool.mypy]
+python_version = "3.12"
+mypy_path = "src"
+packages = ["interface_cua"]
+plugins = ["pydantic.mypy"]
+warn_unused_ignores = true
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["interface_cua.domain.*", "interface_cua.policy.*", "interface_cua.replay.*"]
+strict = true
+
+[tool.ruff.lint.per-file-ignores]
+"src/interface_cua/surfaces/browser/scripts.py" = ["E501"]
+"src/interface_cua/handoff/operator_api.py" = ["E501"]
+"scripts/make_evidence.py" = ["E501"]

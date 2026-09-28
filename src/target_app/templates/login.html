@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block body %}
+<table class="grid" cellspacing="0" align="center" width="360">
+<tr><td colspan="2" class="lbl">Operator Sign On</td></tr>
+{% if msg %}<tr><td colspan="2"><div class="banner-err">{{ msg }}</div></td></tr>{% endif %}
+<form method="post" action="/login">
+<tr><td class="lbl">User</td><td><input type="text" name="usr" size="20"></td></tr>
+<tr><td class="lbl">Password</td><td><input type="password" name="pwd" size="20"></td></tr>
+<tr><td colspan="2" align="right"><input type="submit" value="Sign On"></td></tr>
+</form>
+</table>
+{% endblock %}

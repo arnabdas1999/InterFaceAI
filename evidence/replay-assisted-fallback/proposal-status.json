@@ -1,0 +1,5 @@
+{
+  "proposal_saved": true,
+  "applied_to_artifact": false,
+  "needs": "review, then `cua overrides approve`, before any future run uses it"
+}

@@ -1,0 +1,70 @@
+{
+  "operator_kind": "scripted_stand_in",
+  "note": "API calls made by the scripted operator; a person uses the console or the headed window",
+  "intervention_id": "iv-c39a2c05",
+  "log": [
+    {
+      "claimed": "iv-c39a2c05",
+      "token": 4
+    },
+    {
+      "step": "click_control",
+      "status": 200,
+      "body": {
+        "at": 1790542174.0465505,
+        "operator": "scripted-operator",
+        "kind": "click",
+        "source": "remote_console",
+        "policy": "allow",
+        "risk": "reversible",
+        "role": "checkbox",
+        "name": "I have a permissible purpose",
+        "x": 406,
+        "y": 278,
+        "route_after": "/members/⟦input:member_id#0f8d7d4e⟧"
+      }
+    },
+    {
+      "step": "click_control",
+      "status": 200,
+      "body": {
+        "at": 1790542174.475832,
+        "operator": "scripted-operator",
+        "kind": "click",
+        "source": "remote_console",
+        "policy": "allow",
+        "risk": "reversible",
+        "role": "button",
+        "name": "Acknowledge",
+        "x": 840,
+        "y": 318,
+        "route_after": "/members/⟦input:member_id#0f8d7d4e⟧"
+      }
+    },
+    {
+      "step": "resolve",
+      "status": 200,
+      "body": {
+        "status": "resolved",
+        "resolution": {
+          "kind": "resume",
+          "operator_id": "scripted-operator",
+          "note": "[scripted_stand_in] completed the compliance attestation; handing back",
+          "step_id": null,
+          "action_hash": null
+        },
+        "control": {
+          "run_id": "rep-20260927T204931-eaf52f",
+          "session_id": "sess-926e34850d",
+          "state": "AUTOMATION_ACTIVE",
+          "owner": "automation",
+          "expected_owner": "automation",
+          "version": 6,
+          "expires_at": null,
+          "last_heartbeat": null,
+          "open_intervention": null
+        }
+      }
+    }
+  ]
+}

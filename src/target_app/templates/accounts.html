@@ -1,0 +1,9 @@
+{% extends "frame.html" %}
+{% block body %}
+<table class="grid" cellspacing="0" width="100%">
+<tr><td class="lbl">Account Type</td><td class="lbl">Account Number</td><td class="lbl">Available Balance</td></tr>
+{% for a in accounts %}
+<tr><td><a href="/members/{{ mid }}/accounts/{{ a.slug }}">{{ a.label }}</a></td><td>{{ a.number }}</td><td align="right">${{ a.balance }}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,80 @@
+<!-- frame 0: main -->
+<!-- sanitized DOM snapshot: input values and label-mapped sensitive cells masked -->
+<html><head>
+<meta name="generator" content="SynthCore 4.2">
+<title>SynthCore Teller Workstation</title>
+<style>
+body { font-family: Verdana, Arial, sans-serif; font-size: 12px; background: #d4d0c8; margin: 0; }
+.hdr { background: #003366; color: #fff; }
+.hdr a { color: #fff; }
+.grid td { border: 1px solid #808080; padding: 3px 6px; background: #fff; }
+.lbl { background: #e8e8e8 !important; font-weight: bold; }
+.banner-err { background: #ffdddd; border: 1px solid #cc0000; color: #990000; padding: 6px; }
+.banner-info { background: #ffffdd; border: 1px solid #999900; padding: 6px; }
+.overlay { position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,.45); }
+.dlg { position: absolute; left: 30%; top: 25%; width: 40%; background: #ece9d8; border: 2px solid #0a246a; }
+.dlg .ttl { background: #0a246a; color: #fff; padding: 3px; font-weight: bold; }
+</style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="4" class="hdr"><tbody><tr>
+<td><b>SynthCore</b> · Harborview Federal Credit Union</td>
+<td align="right">Operator: ⟦secret⟧ | <a href="/main">Main Menu</a> | <a href="/logout">Sign Off</a></td>
+</tr></tbody></table>
+
+<table width="100%" cellspacing="0" cellpadding="8"><tbody><tr><td>
+
+<table cellspacing="0" cellpadding="0" width="100%"><tbody><tr valign="top"><td width="45%">
+ <table class="grid" cellspacing="0" width="100%">
+  <tbody><tr><td colspan="2" class="lbl">Member Information</td></tr>
+  <tr><td class="lbl">Member ID</td><td>⟦masked⟧</td></tr>
+  <tr><td class="lbl">Name</td><td>⟦masked⟧</td></tr>
+  <tr><td class="lbl">Status</td><td>Active</td></tr>
+  <tr><td class="lbl">Member Since</td><td>2011-04-02</td></tr>
+  <tr><td class="lbl">Notes</td><td>Prefers phone contact.</td></tr>
+ </tbody></table>
+ <br>
+ <table cellspacing="0" cellpadding="3"><tbody><tr>
+  <td><input type="button" value="⟦masked⟧" onclick="if (confirm('You are about to view account balances. Continue?')) { document.getElementsByName('acctFrame')[0].src='/members/⟦input:member_id#0f8d7d4e⟧/accounts'; }" style=""></td>
+  <td><a href="/members/⟦input:member_id#0f8d7d4e⟧/subaccounts/new">Open Sub-Account</a></td>
+  <td><form method="post" action="/members/⟦input:member_id#0f8d7d4e⟧/close" style="margin:0"><input type="submit" value="⟦masked⟧" style=""></form></td>
+  <td><a href="/members/search">New Search</a></td>
+ </tr></tbody></table>
+</td><td width="55%">
+ <iframe name="acctFrame" src="/members/⟦input:member_id#0f8d7d4e⟧/accounts" width="100%" height="260" frameborder="1"></iframe>
+</td></tr></tbody></table>
+
+</td></tr></tbody></table>
+<table width="100%"><tbody><tr><td align="right"><font size="1" color="#666">SynthCore 4.2.7 build 311 · synthetic data only</font></td></tr></tbody></table>
+
+
+
+<div class="overlay" id="ovl2" style="display: none;"><div class="dlg"><div class="ttl">Compliance attestation required</div>
+<div style="padding:10px">Before viewing this record you must attest that you have a permissible purpose.</div>
+<div style="padding:10px"><input type="checkbox" id="att1" onclick="document.getElementById('ackbtn').disabled=!this.checked" style=""> I have a permissible purpose</div>
+<div style="padding:10px;text-align:right"><input type="button" id="ackbtn" value="⟦masked⟧" onclick="document.getElementById('ovl2').style.display='none'" style=""></div></div></div>
+
+
+
+
+</body></html>
+
+<!-- frame 1: acctFrame -->
+<!-- sanitized DOM snapshot: input values and label-mapped sensitive cells masked -->
+<html><head><meta name="generator" content="SynthCore 4.2"><style>
+body { font-family: Verdana, Arial, sans-serif; font-size: 12px; margin: 4px; }
+.grid td { border: 1px solid #808080; padding: 3px 6px; }
+.lbl { background: #e8e8e8; font-weight: bold; }
+</style></head><body>
+
+<table class="grid" cellspacing="0" width="100%">
+<tbody><tr><td colspan="2" class="lbl">Share Savings — Account Detail</td></tr>
+<tr><td class="lbl">Member ID</td><td>⟦masked⟧</td></tr>
+<tr><td class="lbl">Account Type</td><td>Share Savings</td></tr>
+<tr><td class="lbl">Account Number</td><td>⟦masked⟧</td></tr>
+<tr><td class="lbl">Current Balance</td><td align="right">⟦masked⟧</td></tr>
+<tr><td class="lbl">As Of</td><td>2026-09-25</td></tr>
+</tbody></table>
+<p><a href="/members/⟦input:member_id#0f8d7d4e⟧/accounts">Back to accounts</a></p>
+
+</body></html>

@@ -1,0 +1,39 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+env:
+  # Synthetic operator account for the local synthetic target; not a real credential.
+  CUA_SECRET_SYNTHCORE_OPERATOR_USERNAME: operator1
+  CUA_SECRET_SYNTHCORE_OPERATOR_PASSWORD: synthetic-only-pass
+  CUA_HMAC_KEY: ci-only-correlation-key
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen
+      - run: uv run playwright install --with-deps chromium
+      - run: uv run ruff check src tests scripts
+      - run: uv run ruff format --check src tests scripts
+      - run: uv run mypy
+      - run: uv run python scripts/gen_schemas.py && git diff --exit-code schemas/
+      # No API key: discovery tests use the scripted planner; replay never needs a model.
+      # The three desktop tests skip here; the desktop job below runs them on Windows.
+      - run: uv run pytest -v --timeout 180
+
+  desktop:
+    # The Windows Forms client driven through UI Automation (discovery, replay, outcome, failure, and
+    # the window-only capture while the window is covered).
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --frozen
+      - run: uv run mypy
+      - run: uv run pytest -v --timeout 180 tests/integration/test_desktop.py

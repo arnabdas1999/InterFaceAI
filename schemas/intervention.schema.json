@@ -1,0 +1,434 @@
+{
+  "$defs": {
+    "ControlState": {
+      "enum": [
+        "AUTOMATION_ACTIVE",
+        "PAUSING",
+        "HUMAN_PENDING",
+        "HUMAN_ACTIVE",
+        "RESUMING",
+        "COMPLETED",
+        "FAILED",
+        "ABORTED"
+      ],
+      "title": "ControlState",
+      "type": "string"
+    },
+    "LeaseSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "expected_owner": {
+          "title": "Expected Owner",
+          "type": "string"
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expires At"
+        },
+        "last_heartbeat": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Heartbeat"
+        },
+        "owner": {
+          "title": "Owner",
+          "type": "string"
+        },
+        "session_id": {
+          "title": "Session Id",
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/ControlState"
+        },
+        "version": {
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "session_id",
+        "state",
+        "owner",
+        "expected_owner",
+        "version"
+      ],
+      "title": "LeaseSnapshot",
+      "type": "object"
+    },
+    "Resolution": {
+      "additionalProperties": false,
+      "properties": {
+        "action_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Hash"
+        },
+        "kind": {
+          "enum": [
+            "resume",
+            "resume_at_step",
+            "complete",
+            "abort",
+            "approve",
+            "deny"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        },
+        "operator_id": {
+          "title": "Operator Id",
+          "type": "string"
+        },
+        "step_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Step Id"
+        }
+      },
+      "required": [
+        "kind",
+        "operator_id"
+      ],
+      "title": "Resolution",
+      "type": "object"
+    }
+  },
+  "$id": "https://github.com/interface-cua/schemas/intervention.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "approval_valid_s": {
+      "default": 300,
+      "title": "Approval Valid S",
+      "type": "integer"
+    },
+    "bound_action": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Bound Action"
+    },
+    "bound_action_hash": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Bound Action Hash"
+    },
+    "capability": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Capability"
+    },
+    "claim_deadline": {
+      "title": "Claim Deadline",
+      "type": "number"
+    },
+    "claimed_at": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Claimed At"
+    },
+    "control": {
+      "$ref": "#/$defs/LeaseSnapshot"
+    },
+    "created_at": {
+      "title": "Created At",
+      "type": "number"
+    },
+    "expected": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expected"
+    },
+    "explanation": {
+      "title": "Explanation",
+      "type": "string"
+    },
+    "goal": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Goal"
+    },
+    "human_actions": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Human Actions",
+      "type": "array"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "stuck",
+        "unknown_state",
+        "approval_required",
+        "locator_failure",
+        "discovery_stuck"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "last_checkpoint_step": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Checkpoint Step"
+    },
+    "max_human_active_s": {
+      "title": "Max Human Active S",
+      "type": "integer"
+    },
+    "notified_at": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Notified At"
+    },
+    "observed": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Observed"
+    },
+    "operator_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Operator Id"
+    },
+    "permitted_resolutions": {
+      "items": {
+        "enum": [
+          "resume",
+          "resume_at_step",
+          "complete",
+          "abort",
+          "approve",
+          "deny"
+        ],
+        "type": "string"
+      },
+      "title": "Permitted Resolutions",
+      "type": "array"
+    },
+    "reason_code": {
+      "title": "Reason Code",
+      "type": "string"
+    },
+    "resolution": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Resolution"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "resolved_at": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resolved At"
+    },
+    "route": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Route"
+    },
+    "run_id": {
+      "title": "Run Id",
+      "type": "string"
+    },
+    "screenshot": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Screenshot"
+    },
+    "status": {
+      "default": "open",
+      "enum": [
+        "open",
+        "claimed",
+        "resolved",
+        "expired"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "step_description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Step Description"
+    },
+    "step_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Step Id"
+    },
+    "tenant_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tenant Id"
+    }
+  },
+  "required": [
+    "id",
+    "run_id",
+    "kind",
+    "reason_code",
+    "explanation",
+    "control",
+    "permitted_resolutions",
+    "claim_deadline",
+    "max_human_active_s",
+    "created_at"
+  ],
+  "title": "Intervention",
+  "type": "object"
+}

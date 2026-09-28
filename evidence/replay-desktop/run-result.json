@@ -1,0 +1,43 @@
+{
+  "run_id": "rep-20260927T210546-345ec0",
+  "mode": "replay",
+  "capability": "desktop-read-savings-balance@1.0.0",
+  "content_hash": "sha256:0f04f7d8b6099b2d0fa845916065c1c1c41ceac43a41f59db41424b5ba76418e",
+  "tenant_id": "tenant-d",
+  "started_at": "2026-09-27T21:05:46.692Z",
+  "finished_at": "2026-09-27T21:05:51.707Z",
+  "duration_ms": 5015,
+  "evidence": [
+    {
+      "kind": "screenshot",
+      "path": "screenshots/3150966-final-state.png",
+      "note": "masked; final-state"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/3150966-final-state.uia.json",
+      "note": "sanitized UIA tree; final-state"
+    },
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [],
+  "overrides": [],
+  "status": "success",
+  "outputs": {
+    "savings_balance": {
+      "amount": "⟦financial#d2eddce8⟧",
+      "currency": "USD"
+    }
+  },
+  "checkpoint": "Member: shows the input member_id",
+  "recoveries": [],
+  "drift": [],
+  "completed_by": {
+    "s1": "automation",
+    "s2": "automation"
+  }
+}

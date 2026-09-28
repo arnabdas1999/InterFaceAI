@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block body %}
+<table class="grid" cellspacing="0" width="520">
+<tr><td colspan="2" class="lbl">Review New Sub-Account</td></tr>
+<tr><td colspan="2"><div class="banner-info">Please review. The account is not opened until you select Open Account.</div></td></tr>
+<tr><td class="lbl" width="35%">{{ b.member_id }}</td><td>{{ mid }}</td></tr>
+<tr><td class="lbl">Product</td><td>{{ b[prd] }}</td></tr>
+<tr><td class="lbl">Nickname</td><td>{{ nck }}</td></tr>
+<form method="post" action="/members/{{ mid }}/subaccounts/commit">
+<input type="hidden" name="prd" value="{{ prd }}"><input type="hidden" name="nck" value="{{ nck }}">
+<tr><td colspan="2" align="right"><input type="submit" value="Open Account"> <a href="/members/{{ mid }}/subaccounts/new">Back</a></td></tr>
+</form>
+</table>
+{% endblock %}

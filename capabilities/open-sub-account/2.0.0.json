@@ -1,0 +1,976 @@
+{
+  "capability": {
+    "description": "Look up the member by member ID, start opening a new sub-account with the given product and nickname, and stop at the review screen. Do NOT open the account.",
+    "id": "open-sub-account",
+    "name": "Open a sub-account (review, then approved commit)",
+    "version": "2.0.0"
+  },
+  "compatibility": {
+    "app_profile": "synthcore@1.0.0",
+    "base_tenant": "tenant-a",
+    "product": "SynthCore",
+    "tenant_override_refs": [],
+    "version_range": ">=4.2,<5.0"
+  },
+  "content_hash": "sha256:434c404f29fc850a348c07b97b575d2a656d2c2035803541544e2f0c0f312e0a",
+  "contract": {
+    "business_outcomes": [
+      {
+        "code": "member_not_found",
+        "description": "Search returned no records.",
+        "details_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "code": "validation_rejected",
+        "description": "The app rejected the input with a red validation banner.",
+        "details_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    ],
+    "inputs": {
+      "additionalProperties": false,
+      "properties": {
+        "member_id": {
+          "description": "5-digit member ID",
+          "pattern": "^\\d{5}$",
+          "type": "string",
+          "x-sensitivity": "pii_low"
+        },
+        "nickname": {
+          "description": "Account nickname",
+          "pattern": "^[A-Za-z0-9 ]{1,24}$",
+          "type": "string",
+          "x-sensitivity": "pii_low"
+        },
+        "product": {
+          "description": "Product to open (vocabulary key)",
+          "enum": [
+            "share_savings",
+            "money_market",
+            "share_certificate"
+          ],
+          "type": "string",
+          "x-sensitivity": "public"
+        }
+      },
+      "required": [
+        "member_id",
+        "nickname",
+        "product"
+      ],
+      "type": "object"
+    },
+    "outputs": {
+      "additionalProperties": false,
+      "properties": {
+        "confirmation_number": {
+          "pattern": "^CNF-\\d{6}$",
+          "type": "string",
+          "x-sensitivity": "public"
+        },
+        "new_account_last4": {
+          "pattern": "^\\d{4}$",
+          "type": "string",
+          "x-sensitivity": "pii_low"
+        }
+      },
+      "required": [
+        "confirmation_number",
+        "new_account_last4"
+      ],
+      "type": "object"
+    },
+    "side_effects": "irreversible"
+  },
+  "extract": [
+    {
+      "after_step": "c1",
+      "method": "text",
+      "output": "confirmation_number",
+      "sensitivity": "public",
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "anchor_text": "Confirmation Number",
+            "control": "cell",
+            "expected_count": 1,
+            "rationale": "Value beside its label on the confirmation page.",
+            "relation": "same_row_following",
+            "score": 0.8,
+            "strategy": "label_anchor"
+          }
+        ],
+        "description": "value cell labelled 'Confirmation Number'",
+        "frame_path": [],
+        "review_required": false
+      },
+      "type": "string"
+    },
+    {
+      "after_step": "c1",
+      "capture": "ending in (\\d{4})",
+      "method": "text",
+      "output": "new_account_last4",
+      "sensitivity": "pii_low",
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "anchor_text": "New Account",
+            "control": "cell",
+            "expected_count": 1,
+            "rationale": "Only the last four digits are displayed and extracted.",
+            "relation": "same_row_following",
+            "score": 0.8,
+            "strategy": "label_anchor"
+          }
+        ],
+        "description": "value cell labelled 'New Account'",
+        "frame_path": [],
+        "review_required": false
+      },
+      "type": "string"
+    }
+  ],
+  "lifecycle": {
+    "approvals": [
+      {
+        "approver": "demo-reviewer",
+        "at": "2026-09-27T19:49:48Z",
+        "content_hash": "sha256:434c404f29fc850a348c07b97b575d2a656d2c2035803541544e2f0c0f312e0a",
+        "note": "reviewed the review summary and validation runs"
+      }
+    ],
+    "status": "approved",
+    "transitions": [
+      {
+        "actor": "cua-compiler/1.0",
+        "at": "2026-09-27T19:49:39Z",
+        "note": "open-sub-account@1.0.0 + authored patch synthcore/open-sub-account.commit@1",
+        "run_ids": [],
+        "to": "draft"
+      },
+      {
+        "actor": "cua validate (evidence script)",
+        "at": "2026-09-27T19:49:48Z",
+        "note": "automatic validation replays passed",
+        "run_ids": [
+          "val-20260927T194944-247132",
+          "val-20260927T194946-96aad5",
+          "val-20260927T194947-fcbee9"
+        ],
+        "to": "validated"
+      },
+      {
+        "actor": "demo-reviewer",
+        "at": "2026-09-27T19:49:48Z",
+        "note": "reviewed the review summary and validation runs",
+        "run_ids": [],
+        "to": "approved"
+      }
+    ]
+  },
+  "policy": {
+    "allowed_actions": [
+      "click",
+      "dialog_respond",
+      "extract",
+      "navigate",
+      "select",
+      "type",
+      "wait_for"
+    ],
+    "allowed_routes": [
+      "/blank",
+      "/login",
+      "/main",
+      "/members/:member_id",
+      "/members/:member_id/subaccounts/commit",
+      "/members/:member_id/subaccounts/new",
+      "/members/:member_id/subaccounts/review",
+      "/members/lookup",
+      "/members/search"
+    ]
+  },
+  "provenance": {
+    "authored_patches": [
+      "synthcore/open-sub-account.commit@1"
+    ],
+    "compiler_version": "cua-compiler/1.0",
+    "created_at": "2026-09-27T19:49:39Z",
+    "discovery_goal": "Look up the member by member ID, start opening a new sub-account with the given product and nickname, and stop at the review screen. Do NOT open the account.",
+    "dropped_actions": 0,
+    "executed_actions": 6,
+    "model": "gemini-3.7-flash",
+    "parent": "open-sub-account@1.0.0",
+    "prompt_template_hash": "sha256:5490e1fd0efc7dea",
+    "source_run_id": "disc-20260927T194811-b16f52"
+  },
+  "review": {
+    "items": [
+      "c1: Click 'Open Account' to commit the new sub-account - authored (synthcore/open-sub-account.commit@1); risk irreversible"
+    ],
+    "review_required": true
+  },
+  "schema_version": "1.0",
+  "steps": [
+    {
+      "action": "type",
+      "description": "Type input member_id into 'Member ID'",
+      "id": "s1",
+      "idempotent": true,
+      "on_success": "s2",
+      "precondition": {
+        "kind": "element_present",
+        "target": {
+          "candidates": [
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "anchor_text": "vocab:member_id",
+              "control": "input",
+              "expected_count": 1,
+              "rationale": "Control in the table row labelled 'Member ID'; legacy markup has no <label> wiring.",
+              "relation": "same_row_following",
+              "score": 0.85,
+              "strategy": "label_anchor"
+            },
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "attributes": {
+                "name": "mbr"
+              },
+              "expected_count": 1,
+              "rationale": "Stable, non-generated attribute(s) on the control.",
+              "score": 0.7,
+              "strategy": "attribute",
+              "tag": "input"
+            },
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(2) > input:nth-of-type(1)",
+              "expected_count": 1,
+              "rationale": "Structural path; brittle, kept as a late fallback only.",
+              "score": 0.3,
+              "strategy": "structural"
+            }
+          ],
+          "description": "Type input member_id into 'Member ID'",
+          "frame_path": [],
+          "review_required": false
+        }
+      },
+      "provenance": "model",
+      "rationale": "Enter the member ID into the search input.",
+      "reentry_point": true,
+      "review_notes": [],
+      "review_required": false,
+      "risk_class": "sensitive_reversible",
+      "states": [],
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "anchor_text": "vocab:member_id",
+            "control": "input",
+            "expected_count": 1,
+            "rationale": "Control in the table row labelled 'Member ID'; legacy markup has no <label> wiring.",
+            "relation": "same_row_following",
+            "score": 0.85,
+            "strategy": "label_anchor"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "attributes": {
+              "name": "mbr"
+            },
+            "expected_count": 1,
+            "rationale": "Stable, non-generated attribute(s) on the control.",
+            "score": 0.7,
+            "strategy": "attribute",
+            "tag": "input"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(2) > input:nth-of-type(1)",
+            "expected_count": 1,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "score": 0.3,
+            "strategy": "structural"
+          }
+        ],
+        "description": "Type input member_id into 'Member ID'",
+        "frame_path": [],
+        "review_required": false
+      },
+      "timeout_ms": 10000,
+      "value": {
+        "from_input": "member_id"
+      }
+    },
+    {
+      "action": "click",
+      "description": "Click button 'Search'",
+      "id": "s2",
+      "idempotent": true,
+      "on_success": "s3",
+      "postcondition": {
+        "frame_path": [],
+        "kind": "url_matches",
+        "params_equal": {
+          "member_id": {
+            "from_input": "member_id"
+          }
+        },
+        "route": "/members/:member_id"
+      },
+      "precondition": {
+        "kind": "element_present",
+        "target": {
+          "candidates": [
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "exact": true,
+              "expected_count": 1,
+              "name": "Search",
+              "rationale": "Accessible role 'button' with name from value; survives layout and markup changes.",
+              "role": "button",
+              "score": 0.9,
+              "strategy": "role_name"
+            },
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1) > input:nth-of-type(1)",
+              "expected_count": 1,
+              "rationale": "Structural path; brittle, kept as a late fallback only.",
+              "score": 0.3,
+              "strategy": "structural"
+            }
+          ],
+          "description": "Click button 'Search'",
+          "frame_path": [],
+          "review_required": false
+        }
+      },
+      "provenance": "model",
+      "rationale": "Click Search to look up the member.",
+      "reentry_point": false,
+      "retry": {
+        "backoff_ms": 400,
+        "max_attempts": 2
+      },
+      "review_notes": [],
+      "review_required": false,
+      "risk_class": "sensitive_reversible",
+      "states": [
+        {
+          "on": "business_outcome",
+          "outcome_code": "member_not_found",
+          "state": "search_no_results"
+        },
+        {
+          "on": "business_outcome",
+          "outcome_code": "validation_rejected",
+          "state": "validation_banner"
+        }
+      ],
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "exact": true,
+            "expected_count": 1,
+            "name": "Search",
+            "rationale": "Accessible role 'button' with name from value; survives layout and markup changes.",
+            "role": "button",
+            "score": 0.9,
+            "strategy": "role_name"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1) > input:nth-of-type(1)",
+            "expected_count": 1,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "score": 0.3,
+            "strategy": "structural"
+          }
+        ],
+        "description": "Click button 'Search'",
+        "frame_path": [],
+        "review_required": false
+      },
+      "timeout_ms": 10000
+    },
+    {
+      "action": "click",
+      "description": "Click link 'Open Sub-Account'",
+      "id": "s3",
+      "idempotent": true,
+      "on_success": "s4",
+      "postcondition": {
+        "frame_path": [],
+        "kind": "url_matches",
+        "params_equal": {
+          "member_id": {
+            "from_input": "member_id"
+          }
+        },
+        "route": "/members/:member_id/subaccounts/new"
+      },
+      "precondition": {
+        "kind": "element_present",
+        "target": {
+          "candidates": [
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "exact": true,
+              "expected_count": 1,
+              "name": "vocab:open_sub_account",
+              "rationale": "Accessible role 'link' with name from content; survives layout and markup changes.",
+              "role": "link",
+              "score": 0.9,
+              "strategy": "role_name"
+            },
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > a:nth-of-type(1)",
+              "expected_count": 1,
+              "rationale": "Structural path; brittle, kept as a late fallback only.",
+              "score": 0.3,
+              "strategy": "structural"
+            }
+          ],
+          "description": "Click link 'Open Sub-Account'",
+          "frame_path": [],
+          "review_required": false
+        }
+      },
+      "provenance": "model",
+      "rationale": "Click Open Sub-Account to start the sub-account opening flow.",
+      "reentry_point": false,
+      "retry": {
+        "backoff_ms": 400,
+        "max_attempts": 2
+      },
+      "review_notes": [],
+      "review_required": false,
+      "risk_class": "reversible",
+      "states": [],
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "exact": true,
+            "expected_count": 1,
+            "name": "vocab:open_sub_account",
+            "rationale": "Accessible role 'link' with name from content; survives layout and markup changes.",
+            "role": "link",
+            "score": 0.9,
+            "strategy": "role_name"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(2) > a:nth-of-type(1)",
+            "expected_count": 1,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "score": 0.3,
+            "strategy": "structural"
+          }
+        ],
+        "description": "Click link 'Open Sub-Account'",
+        "frame_path": [],
+        "review_required": false
+      },
+      "timeout_ms": 10000
+    },
+    {
+      "action": "select",
+      "description": "Select input product in 'Product'",
+      "id": "s4",
+      "idempotent": true,
+      "on_success": "s5",
+      "precondition": {
+        "kind": "element_present",
+        "target": {
+          "candidates": [
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "anchor_text": "Product",
+              "control": "select",
+              "expected_count": 1,
+              "rationale": "Control in the table row labelled 'Product'; legacy markup has no <label> wiring.",
+              "relation": "same_row_following",
+              "score": 0.85,
+              "strategy": "label_anchor"
+            },
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "attributes": {
+                "name": "prd"
+              },
+              "expected_count": 1,
+              "rationale": "Stable, non-generated attribute(s) on the control.",
+              "score": 0.7,
+              "strategy": "attribute",
+              "tag": "select"
+            },
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(2) > select:nth-of-type(1)",
+              "expected_count": 1,
+              "rationale": "Structural path; brittle, kept as a late fallback only.",
+              "score": 0.3,
+              "strategy": "structural"
+            }
+          ],
+          "description": "Select input product in 'Product'",
+          "frame_path": [],
+          "review_required": false
+        }
+      },
+      "provenance": "model",
+      "rationale": "Select the sub-account product.",
+      "reentry_point": false,
+      "review_notes": [],
+      "review_required": false,
+      "risk_class": "reversible",
+      "select_by": "value",
+      "states": [],
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "anchor_text": "Product",
+            "control": "select",
+            "expected_count": 1,
+            "rationale": "Control in the table row labelled 'Product'; legacy markup has no <label> wiring.",
+            "relation": "same_row_following",
+            "score": 0.85,
+            "strategy": "label_anchor"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "attributes": {
+              "name": "prd"
+            },
+            "expected_count": 1,
+            "rationale": "Stable, non-generated attribute(s) on the control.",
+            "score": 0.7,
+            "strategy": "attribute",
+            "tag": "select"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(2) > select:nth-of-type(1)",
+            "expected_count": 1,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "score": 0.3,
+            "strategy": "structural"
+          }
+        ],
+        "description": "Select input product in 'Product'",
+        "frame_path": [],
+        "review_required": false
+      },
+      "timeout_ms": 10000,
+      "value": {
+        "from_input": "product"
+      }
+    },
+    {
+      "action": "type",
+      "description": "Type input nickname into 'Nickname'",
+      "id": "s5",
+      "idempotent": true,
+      "on_success": "s6",
+      "precondition": {
+        "kind": "element_present",
+        "target": {
+          "candidates": [
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "anchor_text": "Nickname",
+              "control": "input",
+              "expected_count": 1,
+              "rationale": "Control in the table row labelled 'Nickname'; legacy markup has no <label> wiring.",
+              "relation": "same_row_following",
+              "score": 0.85,
+              "strategy": "label_anchor"
+            },
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "attributes": {
+                "name": "nck"
+              },
+              "expected_count": 1,
+              "rationale": "Stable, non-generated attribute(s) on the control.",
+              "score": 0.7,
+              "strategy": "attribute",
+              "tag": "input"
+            },
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(2) > input:nth-of-type(1)",
+              "expected_count": 1,
+              "rationale": "Structural path; brittle, kept as a late fallback only.",
+              "score": 0.3,
+              "strategy": "structural"
+            }
+          ],
+          "description": "Type input nickname into 'Nickname'",
+          "frame_path": [],
+          "review_required": false
+        }
+      },
+      "provenance": "model",
+      "rationale": "Enter the account nickname.",
+      "reentry_point": false,
+      "review_notes": [],
+      "review_required": false,
+      "risk_class": "reversible",
+      "states": [],
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "anchor_text": "Nickname",
+            "control": "input",
+            "expected_count": 1,
+            "rationale": "Control in the table row labelled 'Nickname'; legacy markup has no <label> wiring.",
+            "relation": "same_row_following",
+            "score": 0.85,
+            "strategy": "label_anchor"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "attributes": {
+              "name": "nck"
+            },
+            "expected_count": 1,
+            "rationale": "Stable, non-generated attribute(s) on the control.",
+            "score": 0.7,
+            "strategy": "attribute",
+            "tag": "input"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(2) > input:nth-of-type(1)",
+            "expected_count": 1,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "score": 0.3,
+            "strategy": "structural"
+          }
+        ],
+        "description": "Type input nickname into 'Nickname'",
+        "frame_path": [],
+        "review_required": false
+      },
+      "timeout_ms": 10000,
+      "value": {
+        "from_input": "nickname"
+      }
+    },
+    {
+      "action": "click",
+      "description": "Click button 'Continue'",
+      "id": "s6",
+      "idempotent": true,
+      "on_success": "c1",
+      "postcondition": {
+        "frame_path": [],
+        "kind": "url_matches",
+        "params_equal": {
+          "member_id": {
+            "from_input": "member_id"
+          }
+        },
+        "route": "/members/:member_id/subaccounts/review"
+      },
+      "precondition": {
+        "kind": "element_present",
+        "target": {
+          "candidates": [
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "exact": true,
+              "expected_count": 1,
+              "name": "Continue",
+              "rationale": "Accessible role 'button' with name from value; survives layout and markup changes.",
+              "role": "button",
+              "score": 0.9,
+              "strategy": "role_name"
+            },
+            {
+              "adapter_kinds": [
+                "web"
+              ],
+              "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1) > input:nth-of-type(1)",
+              "expected_count": 1,
+              "rationale": "Structural path; brittle, kept as a late fallback only.",
+              "score": 0.3,
+              "strategy": "structural"
+            }
+          ],
+          "description": "Click button 'Continue'",
+          "frame_path": [],
+          "review_required": false
+        }
+      },
+      "provenance": "model",
+      "rationale": "Click Continue to proceed to the review screen.",
+      "reentry_point": false,
+      "retry": {
+        "backoff_ms": 400,
+        "max_attempts": 2
+      },
+      "review_notes": [],
+      "review_required": false,
+      "risk_class": "reversible",
+      "states": [
+        {
+          "on": "business_outcome",
+          "outcome_code": "validation_rejected",
+          "state": "validation_banner"
+        }
+      ],
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "exact": true,
+            "expected_count": 1,
+            "name": "Continue",
+            "rationale": "Accessible role 'button' with name from value; survives layout and markup changes.",
+            "role": "button",
+            "score": 0.9,
+            "strategy": "role_name"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1) > input:nth-of-type(1)",
+            "expected_count": 1,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "score": 0.3,
+            "strategy": "structural"
+          }
+        ],
+        "description": "Click button 'Continue'",
+        "frame_path": [],
+        "review_required": false
+      },
+      "timeout_ms": 10000
+    },
+    {
+      "action": "click",
+      "description": "Click 'Open Account' to commit the new sub-account",
+      "id": "c1",
+      "idempotent": false,
+      "on_success": "end",
+      "postcondition": {
+        "kind": "text_in_region",
+        "pattern": "Sub-Account Opened",
+        "region": {
+          "any_frame": false,
+          "frame_path": []
+        }
+      },
+      "precondition": {
+        "conditions": [
+          {
+            "frame_path": [],
+            "kind": "url_matches",
+            "params_equal": {
+              "member_id": {
+                "from_input": "member_id"
+              }
+            },
+            "route": "/members/:member_id/subaccounts/review"
+          },
+          {
+            "kind": "text_in_region",
+            "pattern": "Review New Sub-Account",
+            "region": {
+              "any_frame": false,
+              "frame_path": []
+            }
+          }
+        ],
+        "kind": "all_of"
+      },
+      "provenance": "authored",
+      "rationale": "",
+      "reentry_point": false,
+      "review_notes": [
+        "irreversible: executed only with a single-use, hash-bound human approval",
+        "authored patch synthcore/open-sub-account.commit@1 by platform-engineer (reviewed)"
+      ],
+      "review_required": true,
+      "risk_class": "irreversible",
+      "states": [],
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "exact": true,
+            "expected_count": 1,
+            "name": "Open Account",
+            "rationale": "Commit button caption on the SynthCore review screen; reviewed.",
+            "role": "button",
+            "score": 0.9,
+            "strategy": "role_name"
+          }
+        ],
+        "description": "Open Account button on the review screen",
+        "frame_path": [],
+        "review_required": false
+      },
+      "timeout_ms": 15000
+    }
+  ],
+  "success": {
+    "checks": [
+      {
+        "frame_path": [],
+        "kind": "url_matches",
+        "params_equal": {
+          "member_id": {
+            "from_input": "member_id"
+          }
+        },
+        "route": "/members/:member_id/subaccounts/commit"
+      },
+      {
+        "kind": "text_in_region",
+        "pattern": "Sub-Account Opened",
+        "region": {
+          "any_frame": false,
+          "frame_path": []
+        }
+      },
+      {
+        "contains": {
+          "from_input": "member_id"
+        },
+        "kind": "text_in_region",
+        "region": {
+          "any_frame": false,
+          "frame_path": [],
+          "target": {
+            "candidates": [
+              {
+                "adapter_kinds": [
+                  "web"
+                ],
+                "anchor_text": "vocab:member_id",
+                "control": "cell",
+                "expected_count": 1,
+                "rationale": "Ties the confirmation to the input member.",
+                "relation": "same_row_following",
+                "score": 0.8,
+                "strategy": "label_anchor"
+              }
+            ],
+            "description": "value cell labelled 'Member ID'",
+            "frame_path": [],
+            "review_required": false
+          }
+        }
+      }
+    ],
+    "description": "Confirmation page shows 'Sub-Account Opened' for the input member"
+  },
+  "target": {
+    "adapter_requirements": [
+      "web",
+      "web.frames"
+    ],
+    "app_profile": "synthcore",
+    "app_profile_version_range": ">=1.0.0,<2.0.0",
+    "entry_point": {
+      "route": "/members/search",
+      "route_handle": "member_search"
+    },
+    "requires_session": "authenticated",
+    "surface_type": "legacy-web",
+    "vendor_product": "SynthCore"
+  }
+}

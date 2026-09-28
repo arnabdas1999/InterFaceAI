@@ -1,0 +1,30 @@
+{
+  "note": "Identity comes from bearer tokens (only hashes are stored); roles and tenant scope are enforced on every call",
+  "checks": [
+    {
+      "case": "no token",
+      "status": 401,
+      "detail": "missing bearer token"
+    },
+    {
+      "case": "forged token",
+      "status": 401,
+      "detail": "invalid or revoked token"
+    },
+    {
+      "case": "operator scoped to another tenant (bob: tenant-b)",
+      "status": 403,
+      "detail": "bob is not authorized for tenant tenant-a"
+    },
+    {
+      "case": "plain operator tries to approve (alice: no supervisor role)",
+      "status": 403,
+      "detail": "alice lacks the supervisor role"
+    },
+    {
+      "case": "request body claims another identity",
+      "status": 403,
+      "detail": "token belongs to alice, not supervisor-1"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "note": "Target app commit ledger after the run: exactly one commit (account number masked to last 4)",
+  "entries": [
+    {
+      "confirmation_number": "CNF-004821",
+      "member_id": "67890",
+      "product": "share_certificate",
+      "nickname": "CD Ladder",
+      "account_number": "******4821",
+      "at": 1790542179.016667
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body %}
+<table cellspacing="0" cellpadding="0" width="100%"><tr valign="top"><td width="45%">
+ <table class="grid" cellspacing="0" width="100%">
+  <tr><td colspan="2" class="lbl">{{ b.member }} Information</td></tr>
+  <tr><td class="lbl">{{ b.member_id }}</td><td>{{ mid }}</td></tr>
+  <tr><td class="lbl">Name</td><td>{{ m.name }}</td></tr>
+  <tr><td class="lbl">Status</td><td>{{ m.status }}</td></tr>
+  <tr><td class="lbl">{{ b.member }} Since</td><td>{{ m.since }}</td></tr>
+  <tr><td class="lbl">Notes</td><td>{{ m.notes }}</td></tr>
+ </table>
+ <br>
+ <table cellspacing="0" cellpadding="3"><tr>
+  <td><input type="button" value="{{ view_label }}" onclick="if (confirm('You are about to view account balances. Continue?')) { document.getElementsByName('acctFrame')[0].src='/members/{{ mid }}/accounts'; }"></td>
+  <td><a href="/members/{{ mid }}/subaccounts/new">{{ b.open_sub_account }}</a></td>
+  <td><form method="post" action="/members/{{ mid }}/close" style="margin:0"><input type="submit" value="Close Account"></form></td>
+  <td><a href="/members/search">New Search</a></td>
+ </tr></table>
+</td><td width="55%">
+ <iframe name="acctFrame" src="/blank" width="100%" height="260" frameborder="1"></iframe>
+</td></tr></table>
+{% endblock %}
+{% block overlays %}
+{% if notice %}
+<div class="overlay" id="ovl1"><div class="dlg"><div class="ttl">System notice</div>
+<div style="padding:10px">Scheduled maintenance tonight 23:00-01:00. Posting may be delayed.</div>
+<div style="padding:10px;text-align:right"><input type="button" value="Dismiss" onclick="document.getElementById('ovl1').style.display='none'"></div></div></div>
+{% endif %}
+{% if unknown %}
+<div class="overlay" id="ovl2"><div class="dlg"><div class="ttl">Compliance attestation required</div>
+<div style="padding:10px">Before viewing this record you must attest that you have a permissible purpose.</div>
+<div style="padding:10px"><input type="checkbox" id="att1" onclick="document.getElementById('ackbtn').disabled=!this.checked"> I have a permissible purpose</div>
+<div style="padding:10px;text-align:right"><input type="button" id="ackbtn" value="Acknowledge" disabled onclick="document.getElementById('ovl2').style.display='none'"></div></div></div>
+{% endif %}
+{% if popup_url %}<script>window.open({{ popup_url|tojson }}, "promo");</script>{% endif %}
+{% endblock %}

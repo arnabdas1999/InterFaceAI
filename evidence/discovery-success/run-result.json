@@ -1,0 +1,50 @@
+{
+  "run_id": "disc-20260927T194320-2cb1b7",
+  "mode": "discovery",
+  "capability": "read-savings-balance",
+  "tenant_id": "tenant-a",
+  "started_at": "2026-09-27T19:43:20.904Z",
+  "finished_at": "2026-09-27T19:45:48.150Z",
+  "duration_ms": 147246,
+  "evidence": [
+    {
+      "kind": "screenshot",
+      "path": "screenshots/8348051-verified-final-state.png",
+      "note": "masked; verified-final-state"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/8348051-verified-final-state.html",
+      "note": "sanitized; verified-final-state"
+    },
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [],
+  "usage": {
+    "model": "gemini-3.8-flash",
+    "decisions": 8,
+    "input_tokens": 16554,
+    "output_tokens": 425,
+    "latency_ms": 98740
+  },
+  "status": "success",
+  "outputs": {
+    "savings_balance": {
+      "amount": "⟦financial#a03a8071⟧",
+      "currency": "USD"
+    }
+  },
+  "checkpoint": "Account Type = 'Share Savings'; Member ID = input member_id",
+  "recoveries": [],
+  "drift": [],
+  "completed_by": {
+    "d1": "automation",
+    "d2": "automation",
+    "d3": "automation",
+    "d4": "automation"
+  }
+}

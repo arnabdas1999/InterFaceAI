@@ -1,0 +1,396 @@
+{
+  "id": "synthcore",
+  "version": "1.0.0",
+  "vendor_product": "SynthCore",
+  "description": "App profile for the SynthCore teller/back-office product. Reviewed once per vendor product and shared by every capability and every tenant running it.",
+  "fingerprint": {
+    "product": "SynthCore",
+    "generator_pattern": "^SynthCore (\\d+\\.\\d+)",
+    "version_range": ">=4.2,<5.0",
+    "required_anchor_texts": [
+      "SynthCore"
+    ]
+  },
+  "route_handles": {
+    "main": "/main",
+    "member_search": "/members/search"
+  },
+  "login": {
+    "route": "/login",
+    "secret_ref": "synthcore/operator",
+    "steps": [
+      {
+        "action": "type",
+        "secret_field": "username",
+        "target": {
+          "description": "User field on the sign-on form",
+          "candidates": [
+            {
+              "strategy": "label_anchor",
+              "anchor_text": "User",
+              "control": "input",
+              "score": 0.8,
+              "rationale": "Label lives in the adjacent table cell; no <label> element."
+            },
+            {
+              "strategy": "attribute",
+              "tag": "input",
+              "attributes": {
+                "name": "usr"
+              },
+              "score": 0.7,
+              "rationale": "Stable form field name."
+            }
+          ]
+        }
+      },
+      {
+        "action": "type",
+        "secret_field": "password",
+        "target": {
+          "description": "Password field on the sign-on form",
+          "candidates": [
+            {
+              "strategy": "label_anchor",
+              "anchor_text": "Password",
+              "control": "input",
+              "input_type": "password",
+              "score": 0.8,
+              "rationale": "Adjacent-cell label."
+            },
+            {
+              "strategy": "attribute",
+              "tag": "input",
+              "attributes": {
+                "name": "pwd",
+                "type": "password"
+              },
+              "score": 0.7,
+              "rationale": "Stable form field name."
+            }
+          ]
+        }
+      },
+      {
+        "action": "click",
+        "target": {
+          "description": "Sign On button",
+          "candidates": [
+            {
+              "strategy": "role_name",
+              "role": "button",
+              "name": "Sign On",
+              "score": 0.9,
+              "rationale": "Submit button with a stable caption."
+            }
+          ]
+        }
+      }
+    ],
+    "success": {
+      "kind": "any_of",
+      "conditions": [
+        {
+          "kind": "url_matches",
+          "route": "/main"
+        },
+        {
+          "kind": "all_of",
+          "conditions": [
+            {
+              "kind": "not",
+              "condition": {
+                "kind": "url_matches",
+                "route": "/login"
+              }
+            },
+            {
+              "kind": "text_in_region",
+              "pattern": "Operator:"
+            }
+          ]
+        }
+      ]
+    },
+    "session_valid": {
+      "kind": "all_of",
+      "conditions": [
+        {
+          "kind": "not",
+          "condition": {
+            "kind": "url_matches",
+            "route": "/login"
+          }
+        },
+        {
+          "kind": "text_in_region",
+          "pattern": "Operator:"
+        }
+      ]
+    }
+  },
+  "state_catalog": [
+    {
+      "id": "session_expired",
+      "description": "Operator session expired; the app shows the sign-on page with an expiry banner (possibly inside the account iframe).",
+      "detector": {
+        "kind": "text_in_region",
+        "region": {
+          "any_frame": true
+        },
+        "pattern": "session has expired"
+      },
+      "classification": "recoverable",
+      "scope": "global",
+      "handler": {
+        "kind": "reauthenticate",
+        "max_attempts": 1
+      },
+      "recovery_code": "session_reauthenticated",
+      "error_code": "session_recovery_exhausted",
+      "retryable": true,
+      "message_region": {
+        "any_frame": true
+      }
+    },
+    {
+      "id": "permission_denied",
+      "description": "The service account lacks an entitlement. A human in the same session inherits the same permissions, so this is a hard failure, not an escalation.",
+      "detector": {
+        "kind": "text_in_region",
+        "region": {
+          "any_frame": true
+        },
+        "pattern": "Access Denied|do not have permission"
+      },
+      "classification": "hard_failure",
+      "scope": "global",
+      "error_code": "permission_denied",
+      "retryable": false,
+      "message_region": {
+        "any_frame": true
+      }
+    },
+    {
+      "id": "app_error",
+      "description": "Generic application error page (HTTP 500). Retried only on idempotent steps.",
+      "detector": {
+        "kind": "text_in_region",
+        "region": {
+          "any_frame": true
+        },
+        "pattern": "Application Error"
+      },
+      "classification": "recoverable",
+      "scope": "global",
+      "handler": {
+        "kind": "retry_step",
+        "max_attempts": 2,
+        "backoff_ms": 400
+      },
+      "recovery_code": "transient_retry",
+      "error_code": "app_error",
+      "retryable": true,
+      "message_region": {
+        "any_frame": true
+      }
+    },
+    {
+      "id": "system_notice_modal",
+      "description": "Known informational interstitial ('System notice') that blocks the page until dismissed.",
+      "detector": {
+        "kind": "element_present",
+        "target": {
+          "description": "System notice Dismiss button",
+          "candidates": [
+            {
+              "strategy": "role_name",
+              "role": "button",
+              "name": "Dismiss",
+              "score": 0.9,
+              "rationale": "Only control on the notice modal."
+            }
+          ]
+        }
+      },
+      "classification": "recoverable",
+      "scope": "global",
+      "handler": {
+        "kind": "dismiss",
+        "target": {
+          "description": "System notice Dismiss button",
+          "candidates": [
+            {
+              "strategy": "role_name",
+              "role": "button",
+              "name": "Dismiss",
+              "score": 0.9,
+              "rationale": "Only control on the notice modal."
+            }
+          ]
+        }
+      },
+      "recovery_code": "interstitial_dismissed"
+    },
+    {
+      "id": "dialog_view_balances",
+      "description": "Native confirm() shown before balances are displayed. Accepting is read-only and reviewed as safe.",
+      "detector": {
+        "kind": "dialog_present",
+        "dialog_type": "confirm",
+        "text_pattern": "about to view account balances"
+      },
+      "classification": "recoverable",
+      "scope": "global",
+      "handler": {
+        "kind": "dialog",
+        "dialog_response": "accept"
+      },
+      "recovery_code": "dialog_handled"
+    },
+    {
+      "id": "search_no_results",
+      "description": "Search returned no records.",
+      "detector": {
+        "kind": "text_in_region",
+        "pattern": "No records found"
+      },
+      "classification": "business_outcome",
+      "scope": "step",
+      "default_outcome_code": "member_not_found",
+      "applies_after_submit_on": [
+        "/members/search"
+      ]
+    },
+    {
+      "id": "validation_banner",
+      "description": "The app rejected the input with a red validation banner.",
+      "detector": {
+        "kind": "element_present",
+        "target": {
+          "description": "Validation error banner",
+          "candidates": [
+            {
+              "strategy": "structural",
+              "css": "div.banner-err",
+              "score": 0.3,
+              "rationale": "Banners have no role or id; the CSS class is the only stable hook, reviewed for this product."
+            }
+          ]
+        }
+      },
+      "classification": "business_outcome",
+      "scope": "step",
+      "default_outcome_code": "validation_rejected",
+      "message_region": {
+        "target": {
+          "description": "Validation error banner",
+          "candidates": [
+            {
+              "strategy": "structural",
+              "css": "div.banner-err",
+              "score": 0.3,
+              "rationale": "Banner text is returned (sanitized) as outcome details."
+            }
+          ]
+        }
+      },
+      "applies_after_submit_on": [
+        "/members/search",
+        "/members/*/subaccounts/new"
+      ]
+    }
+  ],
+  "risk_rules": [
+    {
+      "id": "close-account",
+      "match": {
+        "name_pattern": "(?i)close account|delete|terminate|charge.?off"
+      },
+      "risk": "irreversible",
+      "reason": "Destructive account maintenance."
+    },
+    {
+      "id": "open-sub-account-commit",
+      "match": {
+        "form_action_route": "/members/*/subaccounts/commit"
+      },
+      "risk": "irreversible",
+      "reason": "Commits a new sub-account (financial side effect)."
+    },
+    {
+      "id": "commit-captions",
+      "match": {
+        "name_pattern": "(?i)^(open account|submit transfer|approve|post|confirm)$"
+      },
+      "risk": "irreversible",
+      "reason": "Caption conventionally commits a transaction on this product."
+    },
+    {
+      "id": "member-id-entry",
+      "match": {
+        "route": "/members/search"
+      },
+      "risk": "sensitive_reversible",
+      "reason": "Typing member identifiers; permitted only into configured fields, redacted in evidence."
+    }
+  ],
+  "safe_post_routes": [
+    "/login",
+    "/members/*/subaccounts/review"
+  ],
+  "sensitive_fields": {
+    "labels": [
+      {
+        "label_pattern": "^Name$",
+        "kind": "name"
+      },
+      {
+        "label_pattern": "Account Number",
+        "kind": "account_number"
+      },
+      {
+        "label_pattern": "Balance",
+        "kind": "money"
+      },
+      {
+        "label_pattern": "^(Member ID|Customer No\\.)$",
+        "kind": "member_id"
+      },
+      {
+        "label_pattern": "Date of Birth|DOB",
+        "kind": "dob"
+      },
+      {
+        "label_pattern": "SSN|Tax ID",
+        "kind": "ssn"
+      }
+    ],
+    "patterns": [
+      {
+        "pattern": "\\(?\\$\\s?[\\d,]+\\.\\d{2}\\)?",
+        "kind": "money"
+      },
+      {
+        "pattern": "(?<![\\d.])\\d{10}(?![\\d.])",
+        "kind": "account_number"
+      },
+      {
+        "pattern": "\\b\\d{3}-\\d{2}-\\d{4}\\b",
+        "kind": "ssn"
+      }
+    ]
+  },
+  "vocabulary": {
+    "member": "Member",
+    "member_id": "Member ID",
+    "member_inquiry": "Member Inquiry",
+    "share_savings": "Share Savings",
+    "share_draft": "Share Draft Checking",
+    "money_market": "Money Market",
+    "share_certificate": "Share Certificate",
+    "open_sub_account": "Open Sub-Account",
+    "view_accounts": "View Accounts",
+    "current_balance": "Current Balance"
+  }
+}

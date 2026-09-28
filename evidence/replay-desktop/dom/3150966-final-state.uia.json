@@ -1,0 +1,126 @@
+{
+  "window": "SynthCore Desktop 4.2 - Member Inquiry",
+  "controls": [
+    {
+      "type": "TextControl",
+      "name": "Member Inquiry",
+      "automation_id": "lblTitle",
+      "rect": {
+        "x": 34.0,
+        "y": 86.0,
+        "w": 210.0,
+        "h": 38.0
+      }
+    },
+    {
+      "type": "TextControl",
+      "name": "Member ID:",
+      "automation_id": "lblMemberId",
+      "rect": {
+        "x": 34.0,
+        "y": 158.0,
+        "w": 140.0,
+        "h": 38.0
+      }
+    },
+    {
+      "type": "EditControl",
+      "name": "",
+      "automation_id": "txtMbr",
+      "rect": {
+        "x": 302.0,
+        "y": 152.0,
+        "w": 240.0,
+        "h": 44.0
+      }
+    },
+    {
+      "type": "ButtonControl",
+      "name": "Search",
+      "automation_id": "btnSearch",
+      "rect": {
+        "x": 582.0,
+        "y": 148.0,
+        "w": 150.0,
+        "h": 46.0
+      }
+    },
+    {
+      "type": "TextControl",
+      "name": "Member:",
+      "automation_id": "lblMember",
+      "rect": {
+        "x": 34.0,
+        "y": 262.0,
+        "w": 106.0,
+        "h": 38.0
+      }
+    },
+    {
+      "type": "TextControl",
+      "name": "⟦masked⟧",
+      "automation_id": "valMember",
+      "rect": {
+        "x": 302.0,
+        "y": 262.0,
+        "w": 76.0,
+        "h": 38.0
+      }
+    },
+    {
+      "type": "TextControl",
+      "name": "Name:",
+      "automation_id": "lblName",
+      "rect": {
+        "x": 34.0,
+        "y": 322.0,
+        "w": 80.0,
+        "h": 38.0
+      }
+    },
+    {
+      "type": "TextControl",
+      "name": "⟦masked⟧",
+      "automation_id": "valName",
+      "rect": {
+        "x": 302.0,
+        "y": 322.0,
+        "w": 148.0,
+        "h": 38.0
+      }
+    },
+    {
+      "type": "TextControl",
+      "name": "Share Savings Balance:",
+      "automation_id": "lblBalance",
+      "rect": {
+        "x": 34.0,
+        "y": 382.0,
+        "w": 264.0,
+        "h": 38.0
+      }
+    },
+    {
+      "type": "TextControl",
+      "name": "⟦masked⟧",
+      "automation_id": "valBalance",
+      "rect": {
+        "x": 382.0,
+        "y": 382.0,
+        "w": 132.0,
+        "h": 38.0
+      }
+    },
+    {
+      "type": "TextControl",
+      "name": "Record loaded for member ⟦input:member_id#c2b3fa8a⟧.",
+      "automation_id": "lblStatus",
+      "rect": {
+        "x": 34.0,
+        "y": 482.0,
+        "w": 384.0,
+        "h": 38.0
+      }
+    }
+  ]
+}

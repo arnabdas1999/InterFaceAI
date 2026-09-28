@@ -1,0 +1,46 @@
+{
+  "candidate_id": "5d1bfe1de6e4",
+  "app_profile": "synthcore@1.0.0",
+  "route": "/members/:member_id",
+  "signature": {
+    "overlay": true,
+    "title": "Compliance attestation required",
+    "buttons": [
+      "Acknowledge"
+    ],
+    "checkboxes": [
+      "I have a permissible purpose"
+    ],
+    "text": "Compliance attestation required Before viewing this record you must attest that you have a permissible purpose. I have a permissible purpose"
+  },
+  "suggested_state": {
+    "id": "compliance_attestation_required",
+    "description": "Mined from runtime: 'Compliance attestation required'. Classify and review before adding to the catalog.",
+    "detector": {
+      "kind": "text_in_region",
+      "region": {
+        "any_frame": true
+      },
+      "pattern": "Compliance attestation required"
+    },
+    "classification": "REVIEW: business_outcome | recoverable | hard_failure",
+    "scope": "global",
+    "handler": null,
+    "note": "an overlay with an attestation checkbox needs a human decision: keep it as an escalation, do not auto-dismiss"
+  },
+  "status": "needs_review",
+  "occurrences": [
+    {
+      "run_id": "rep-20260927T204931-eaf52f",
+      "step_id": "s3",
+      "reason": "'Click button 'View Accounts'' is covered by an unrecognized modal or disabled",
+      "at": "2026-09-27T20:49:33Z"
+    },
+    {
+      "run_id": "rep-20260927T205110-0388de",
+      "step_id": "s3",
+      "reason": "'Click button 'View Accounts'' is covered by an unrecognized modal or disabled",
+      "at": "2026-09-27T20:51:12Z"
+    }
+  ]
+}

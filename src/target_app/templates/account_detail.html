@@ -1,0 +1,12 @@
+{% extends "frame.html" %}
+{% block body %}
+<table class="grid" cellspacing="0" width="100%">
+<tr><td colspan="2" class="lbl">{{ a.label }} &mdash; Account Detail</td></tr>
+<tr><td class="lbl">{{ b.member_id }}</td><td>{{ mid }}</td></tr>
+<tr><td class="lbl">Account Type</td><td>{{ a.label }}</td></tr>
+<tr><td class="lbl">Account Number</td><td>{{ a.number }}</td></tr>
+<tr><td class="lbl">{{ b.current_balance }}</td><td align="right">${{ a.balance }}</td></tr>
+<tr><td class="lbl">As Of</td><td>2026-09-25</td></tr>
+</table>
+<p><a href="/members/{{ mid }}/accounts">Back to accounts</a></p>
+{% endblock %}

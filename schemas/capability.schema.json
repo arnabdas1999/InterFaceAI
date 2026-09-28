@@ -1,0 +1,1982 @@
+{
+  "$defs": {
+    "ActionKind": {
+      "enum": [
+        "navigate",
+        "click",
+        "type",
+        "select",
+        "press",
+        "wait_for",
+        "extract",
+        "dialog_respond"
+      ],
+      "title": "ActionKind",
+      "type": "string"
+    },
+    "AllOf": {
+      "additionalProperties": false,
+      "properties": {
+        "conditions": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "all_of": "#/$defs/AllOf",
+                "any_of": "#/$defs/AnyOf",
+                "dialog_present": "#/$defs/DialogPresent",
+                "element_absent": "#/$defs/ElementAbsent",
+                "element_present": "#/$defs/ElementPresent",
+                "frame_loaded": "#/$defs/FrameLoaded",
+                "http_status": "#/$defs/HttpStatusIs",
+                "not": "#/$defs/Not",
+                "text_in_region": "#/$defs/TextInRegion",
+                "url_matches": "#/$defs/UrlMatches"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/UrlMatches"
+              },
+              {
+                "$ref": "#/$defs/ElementPresent"
+              },
+              {
+                "$ref": "#/$defs/ElementAbsent"
+              },
+              {
+                "$ref": "#/$defs/TextInRegion"
+              },
+              {
+                "$ref": "#/$defs/FrameLoaded"
+              },
+              {
+                "$ref": "#/$defs/DialogPresent"
+              },
+              {
+                "$ref": "#/$defs/HttpStatusIs"
+              },
+              {
+                "$ref": "#/$defs/AllOf"
+              },
+              {
+                "$ref": "#/$defs/AnyOf"
+              },
+              {
+                "$ref": "#/$defs/Not"
+              }
+            ]
+          },
+          "title": "Conditions",
+          "type": "array"
+        },
+        "kind": {
+          "const": "all_of",
+          "default": "all_of",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "conditions"
+      ],
+      "title": "AllOf",
+      "type": "object"
+    },
+    "AnyOf": {
+      "additionalProperties": false,
+      "properties": {
+        "conditions": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "all_of": "#/$defs/AllOf",
+                "any_of": "#/$defs/AnyOf",
+                "dialog_present": "#/$defs/DialogPresent",
+                "element_absent": "#/$defs/ElementAbsent",
+                "element_present": "#/$defs/ElementPresent",
+                "frame_loaded": "#/$defs/FrameLoaded",
+                "http_status": "#/$defs/HttpStatusIs",
+                "not": "#/$defs/Not",
+                "text_in_region": "#/$defs/TextInRegion",
+                "url_matches": "#/$defs/UrlMatches"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/UrlMatches"
+              },
+              {
+                "$ref": "#/$defs/ElementPresent"
+              },
+              {
+                "$ref": "#/$defs/ElementAbsent"
+              },
+              {
+                "$ref": "#/$defs/TextInRegion"
+              },
+              {
+                "$ref": "#/$defs/FrameLoaded"
+              },
+              {
+                "$ref": "#/$defs/DialogPresent"
+              },
+              {
+                "$ref": "#/$defs/HttpStatusIs"
+              },
+              {
+                "$ref": "#/$defs/AllOf"
+              },
+              {
+                "$ref": "#/$defs/AnyOf"
+              },
+              {
+                "$ref": "#/$defs/Not"
+              }
+            ]
+          },
+          "title": "Conditions",
+          "type": "array"
+        },
+        "kind": {
+          "const": "any_of",
+          "default": "any_of",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "conditions"
+      ],
+      "title": "AnyOf",
+      "type": "object"
+    },
+    "Approval": {
+      "additionalProperties": false,
+      "properties": {
+        "approver": {
+          "title": "Approver",
+          "type": "string"
+        },
+        "at": {
+          "title": "At",
+          "type": "string"
+        },
+        "content_hash": {
+          "title": "Content Hash",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "approver",
+        "at",
+        "content_hash"
+      ],
+      "title": "Approval",
+      "type": "object"
+    },
+    "ArtifactPolicy": {
+      "additionalProperties": false,
+      "description": "Narrowing only: intersected with global and tenant policy at run time.",
+      "properties": {
+        "allowed_actions": {
+          "items": {
+            "$ref": "#/$defs/ActionKind"
+          },
+          "title": "Allowed Actions",
+          "type": "array"
+        },
+        "allowed_routes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Routes",
+          "type": "array"
+        }
+      },
+      "required": [
+        "allowed_actions",
+        "allowed_routes"
+      ],
+      "title": "ArtifactPolicy",
+      "type": "object"
+    },
+    "AttributeLocator": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter_kinds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Adapter Kinds",
+          "type": "array"
+        },
+        "attributes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Attributes",
+          "type": "object"
+        },
+        "expected_count": {
+          "default": 1,
+          "title": "Expected Count",
+          "type": "integer"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "strategy": {
+          "const": "attribute",
+          "default": "attribute",
+          "title": "Strategy",
+          "type": "string"
+        },
+        "tag": {
+          "title": "Tag",
+          "type": "string"
+        }
+      },
+      "required": [
+        "score",
+        "rationale",
+        "tag",
+        "attributes"
+      ],
+      "title": "AttributeLocator",
+      "type": "object"
+    },
+    "BusinessOutcomeDecl": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "details_schema": {
+          "additionalProperties": true,
+          "title": "Details Schema",
+          "type": "object"
+        }
+      },
+      "required": [
+        "code",
+        "description"
+      ],
+      "title": "BusinessOutcomeDecl",
+      "type": "object"
+    },
+    "CapabilityInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "version"
+      ],
+      "title": "CapabilityInfo",
+      "type": "object"
+    },
+    "Compatibility": {
+      "additionalProperties": false,
+      "properties": {
+        "app_profile": {
+          "title": "App Profile",
+          "type": "string"
+        },
+        "base_tenant": {
+          "title": "Base Tenant",
+          "type": "string"
+        },
+        "product": {
+          "title": "Product",
+          "type": "string"
+        },
+        "tenant_override_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Tenant Override Refs",
+          "type": "array"
+        },
+        "version_range": {
+          "title": "Version Range",
+          "type": "string"
+        }
+      },
+      "required": [
+        "app_profile",
+        "product",
+        "version_range",
+        "base_tenant"
+      ],
+      "title": "Compatibility",
+      "type": "object"
+    },
+    "Contract": {
+      "additionalProperties": false,
+      "description": "What a calling agent sees. ``inputs``/``outputs`` are JSON Schema objects, so a contract\nmaps 1:1 to a tool definition.",
+      "properties": {
+        "business_outcomes": {
+          "items": {
+            "$ref": "#/$defs/BusinessOutcomeDecl"
+          },
+          "title": "Business Outcomes",
+          "type": "array"
+        },
+        "inputs": {
+          "additionalProperties": true,
+          "title": "Inputs",
+          "type": "object"
+        },
+        "outputs": {
+          "additionalProperties": true,
+          "title": "Outputs",
+          "type": "object"
+        },
+        "side_effects": {
+          "enum": [
+            "none",
+            "reversible",
+            "irreversible"
+          ],
+          "title": "Side Effects",
+          "type": "string"
+        }
+      },
+      "required": [
+        "inputs",
+        "outputs",
+        "side_effects"
+      ],
+      "title": "Contract",
+      "type": "object"
+    },
+    "CoordinateLocator": {
+      "additionalProperties": false,
+      "description": "Last resort for surfaces with no addressable controls. Always flagged for review.",
+      "properties": {
+        "adapter_kinds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Adapter Kinds",
+          "type": "array"
+        },
+        "expected_count": {
+          "default": 1,
+          "title": "Expected Count",
+          "type": "integer"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "strategy": {
+          "const": "coordinate",
+          "default": "coordinate",
+          "title": "Strategy",
+          "type": "string"
+        },
+        "viewport": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "title": "Viewport",
+          "type": "array"
+        },
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "score",
+        "rationale",
+        "x",
+        "y",
+        "viewport"
+      ],
+      "title": "CoordinateLocator",
+      "type": "object"
+    },
+    "DialogPresent": {
+      "additionalProperties": false,
+      "properties": {
+        "dialog_type": {
+          "default": "any",
+          "enum": [
+            "alert",
+            "confirm",
+            "prompt",
+            "beforeunload",
+            "any"
+          ],
+          "title": "Dialog Type",
+          "type": "string"
+        },
+        "kind": {
+          "const": "dialog_present",
+          "default": "dialog_present",
+          "title": "Kind",
+          "type": "string"
+        },
+        "text_pattern": {
+          "title": "Text Pattern",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text_pattern"
+      ],
+      "title": "DialogPresent",
+      "type": "object"
+    },
+    "ElementAbsent": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "element_absent",
+          "default": "element_absent",
+          "title": "Kind",
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/$defs/TargetSpec"
+        }
+      },
+      "required": [
+        "target"
+      ],
+      "title": "ElementAbsent",
+      "type": "object"
+    },
+    "ElementPresent": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "element_present",
+          "default": "element_present",
+          "title": "Kind",
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/$defs/TargetSpec"
+        }
+      },
+      "required": [
+        "target"
+      ],
+      "title": "ElementPresent",
+      "type": "object"
+    },
+    "EntryPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "route": {
+          "title": "Route",
+          "type": "string"
+        },
+        "route_handle": {
+          "title": "Route Handle",
+          "type": "string"
+        }
+      },
+      "required": [
+        "route_handle",
+        "route"
+      ],
+      "title": "EntryPoint",
+      "type": "object"
+    },
+    "Extractor": {
+      "additionalProperties": false,
+      "properties": {
+        "after_step": {
+          "title": "After Step",
+          "type": "string"
+        },
+        "attribute": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attribute"
+        },
+        "capture": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capture"
+        },
+        "enum_values": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Enum Values"
+        },
+        "method": {
+          "default": "text",
+          "enum": [
+            "text",
+            "input_value",
+            "attribute"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "output": {
+          "title": "Output",
+          "type": "string"
+        },
+        "sensitivity": {
+          "default": "pii",
+          "enum": [
+            "public",
+            "pii_low",
+            "pii",
+            "financial",
+            "secret"
+          ],
+          "title": "Sensitivity",
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/$defs/TargetSpec"
+        },
+        "type": {
+          "$ref": "#/$defs/OutputType"
+        }
+      },
+      "required": [
+        "output",
+        "after_step",
+        "target",
+        "type"
+      ],
+      "title": "Extractor",
+      "type": "object"
+    },
+    "FrameLoaded": {
+      "additionalProperties": false,
+      "properties": {
+        "frame_path": {
+          "items": {
+            "$ref": "#/$defs/FrameRef"
+          },
+          "title": "Frame Path",
+          "type": "array"
+        },
+        "kind": {
+          "const": "frame_loaded",
+          "default": "frame_loaded",
+          "title": "Kind",
+          "type": "string"
+        },
+        "route": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Route"
+        }
+      },
+      "required": [
+        "frame_path"
+      ],
+      "title": "FrameLoaded",
+      "type": "object"
+    },
+    "FrameRef": {
+      "additionalProperties": false,
+      "description": "One hop into a nested frame/window. Matched by name first, then by route pattern.",
+      "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "route": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Route"
+        }
+      },
+      "title": "FrameRef",
+      "type": "object"
+    },
+    "HttpStatusIs": {
+      "additionalProperties": false,
+      "description": "Last main-document (or frame document) response status in the given class, e.g. 5xx.",
+      "properties": {
+        "frame_path": {
+          "items": {
+            "$ref": "#/$defs/FrameRef"
+          },
+          "title": "Frame Path",
+          "type": "array"
+        },
+        "kind": {
+          "const": "http_status",
+          "default": "http_status",
+          "title": "Kind",
+          "type": "string"
+        },
+        "status_class": {
+          "enum": [
+            "4xx",
+            "5xx"
+          ],
+          "title": "Status Class",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status_class"
+      ],
+      "title": "HttpStatusIs",
+      "type": "object"
+    },
+    "LabelAnchorLocator": {
+      "additionalProperties": false,
+      "description": "A control located relative to visible label text, e.g. the input in the table row whose\nheader cell reads \"Member ID:\". Works on legacy markup that has no <label> or aria wiring.\n``control=\"cell\"`` targets the value cell itself (used by extractors and checkpoints).",
+      "properties": {
+        "adapter_kinds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Adapter Kinds",
+          "type": "array"
+        },
+        "anchor_text": {
+          "title": "Anchor Text",
+          "type": "string"
+        },
+        "control": {
+          "enum": [
+            "input",
+            "select",
+            "button",
+            "link",
+            "checkbox",
+            "cell"
+          ],
+          "title": "Control",
+          "type": "string"
+        },
+        "expected_count": {
+          "default": 1,
+          "title": "Expected Count",
+          "type": "integer"
+        },
+        "input_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input Type"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "relation": {
+          "const": "same_row_following",
+          "default": "same_row_following",
+          "title": "Relation",
+          "type": "string"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "strategy": {
+          "const": "label_anchor",
+          "default": "label_anchor",
+          "title": "Strategy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "score",
+        "rationale",
+        "anchor_text",
+        "control"
+      ],
+      "title": "LabelAnchorLocator",
+      "type": "object"
+    },
+    "Lifecycle": {
+      "additionalProperties": false,
+      "properties": {
+        "approvals": {
+          "items": {
+            "$ref": "#/$defs/Approval"
+          },
+          "title": "Approvals",
+          "type": "array"
+        },
+        "status": {
+          "default": "draft",
+          "enum": [
+            "draft",
+            "validated",
+            "approved",
+            "deprecated"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "transitions": {
+          "items": {
+            "$ref": "#/$defs/LifecycleTransition"
+          },
+          "title": "Transitions",
+          "type": "array"
+        }
+      },
+      "title": "Lifecycle",
+      "type": "object"
+    },
+    "LifecycleTransition": {
+      "additionalProperties": false,
+      "properties": {
+        "actor": {
+          "title": "Actor",
+          "type": "string"
+        },
+        "at": {
+          "title": "At",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        },
+        "run_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Run Ids",
+          "type": "array"
+        },
+        "to": {
+          "enum": [
+            "draft",
+            "validated",
+            "approved",
+            "deprecated"
+          ],
+          "title": "To",
+          "type": "string"
+        }
+      },
+      "required": [
+        "to",
+        "at",
+        "actor"
+      ],
+      "title": "LifecycleTransition",
+      "type": "object"
+    },
+    "Not": {
+      "additionalProperties": false,
+      "properties": {
+        "condition": {
+          "discriminator": {
+            "mapping": {
+              "all_of": "#/$defs/AllOf",
+              "any_of": "#/$defs/AnyOf",
+              "dialog_present": "#/$defs/DialogPresent",
+              "element_absent": "#/$defs/ElementAbsent",
+              "element_present": "#/$defs/ElementPresent",
+              "frame_loaded": "#/$defs/FrameLoaded",
+              "http_status": "#/$defs/HttpStatusIs",
+              "not": "#/$defs/Not",
+              "text_in_region": "#/$defs/TextInRegion",
+              "url_matches": "#/$defs/UrlMatches"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/UrlMatches"
+            },
+            {
+              "$ref": "#/$defs/ElementPresent"
+            },
+            {
+              "$ref": "#/$defs/ElementAbsent"
+            },
+            {
+              "$ref": "#/$defs/TextInRegion"
+            },
+            {
+              "$ref": "#/$defs/FrameLoaded"
+            },
+            {
+              "$ref": "#/$defs/DialogPresent"
+            },
+            {
+              "$ref": "#/$defs/HttpStatusIs"
+            },
+            {
+              "$ref": "#/$defs/AllOf"
+            },
+            {
+              "$ref": "#/$defs/AnyOf"
+            },
+            {
+              "$ref": "#/$defs/Not"
+            }
+          ],
+          "title": "Condition"
+        },
+        "kind": {
+          "const": "not",
+          "default": "not",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "condition"
+      ],
+      "title": "Not",
+      "type": "object"
+    },
+    "OutputType": {
+      "enum": [
+        "string",
+        "integer",
+        "decimal",
+        "money",
+        "date",
+        "boolean",
+        "enum"
+      ],
+      "title": "OutputType",
+      "type": "string"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "authored_patches": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Authored Patches",
+          "type": "array"
+        },
+        "compiler_version": {
+          "title": "Compiler Version",
+          "type": "string"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "discovery_goal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Discovery Goal"
+        },
+        "dropped_actions": {
+          "default": 0,
+          "title": "Dropped Actions",
+          "type": "integer"
+        },
+        "executed_actions": {
+          "default": 0,
+          "title": "Executed Actions",
+          "type": "integer"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Model"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent"
+        },
+        "prompt_template_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Prompt Template Hash"
+        },
+        "source_run_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source Run Id"
+        }
+      },
+      "required": [
+        "source_run_id",
+        "discovery_goal",
+        "model",
+        "prompt_template_hash",
+        "compiler_version",
+        "created_at"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "RegionSpec": {
+      "additionalProperties": false,
+      "description": "A region of a frame used for text checks: either a target or the whole frame body.",
+      "properties": {
+        "any_frame": {
+          "default": false,
+          "title": "Any Frame",
+          "type": "boolean"
+        },
+        "frame_path": {
+          "items": {
+            "$ref": "#/$defs/FrameRef"
+          },
+          "title": "Frame Path",
+          "type": "array"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TargetSpec"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "RegionSpec",
+      "type": "object"
+    },
+    "RetryPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "backoff_ms": {
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "Backoff Ms",
+          "type": "integer"
+        },
+        "max_attempts": {
+          "maximum": 3,
+          "minimum": 1,
+          "title": "Max Attempts",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_attempts",
+        "backoff_ms"
+      ],
+      "title": "RetryPolicy",
+      "type": "object"
+    },
+    "ReviewInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "review_required": {
+          "title": "Review Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "review_required"
+      ],
+      "title": "ReviewInfo",
+      "type": "object"
+    },
+    "RiskClass": {
+      "enum": [
+        "read_only",
+        "reversible",
+        "sensitive_reversible",
+        "irreversible"
+      ],
+      "title": "RiskClass",
+      "type": "string"
+    },
+    "RoleNameLocator": {
+      "additionalProperties": false,
+      "description": "Accessibility role + accessible name. Name may be a vocabulary key: ``vocab:share_savings``.",
+      "properties": {
+        "adapter_kinds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Adapter Kinds",
+          "type": "array"
+        },
+        "exact": {
+          "default": true,
+          "title": "Exact",
+          "type": "boolean"
+        },
+        "expected_count": {
+          "default": 1,
+          "title": "Expected Count",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "strategy": {
+          "const": "role_name",
+          "default": "role_name",
+          "title": "Strategy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "score",
+        "rationale",
+        "role",
+        "name"
+      ],
+      "title": "RoleNameLocator",
+      "type": "object"
+    },
+    "StateMapping": {
+      "additionalProperties": false,
+      "description": "How this capability responds to a catalog state at this step.",
+      "properties": {
+        "on": {
+          "enum": [
+            "business_outcome",
+            "handle",
+            "escalate",
+            "fail"
+          ],
+          "title": "On",
+          "type": "string"
+        },
+        "outcome_code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Outcome Code"
+        },
+        "state": {
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "state",
+        "on"
+      ],
+      "title": "StateMapping",
+      "type": "object"
+    },
+    "Step": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/ActionKind"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "idempotent": {
+          "title": "Idempotent",
+          "type": "boolean"
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Key"
+        },
+        "on_success": {
+          "default": "end",
+          "title": "On Success",
+          "type": "string"
+        },
+        "postcondition": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "all_of": "#/$defs/AllOf",
+                  "any_of": "#/$defs/AnyOf",
+                  "dialog_present": "#/$defs/DialogPresent",
+                  "element_absent": "#/$defs/ElementAbsent",
+                  "element_present": "#/$defs/ElementPresent",
+                  "frame_loaded": "#/$defs/FrameLoaded",
+                  "http_status": "#/$defs/HttpStatusIs",
+                  "not": "#/$defs/Not",
+                  "text_in_region": "#/$defs/TextInRegion",
+                  "url_matches": "#/$defs/UrlMatches"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/UrlMatches"
+                },
+                {
+                  "$ref": "#/$defs/ElementPresent"
+                },
+                {
+                  "$ref": "#/$defs/ElementAbsent"
+                },
+                {
+                  "$ref": "#/$defs/TextInRegion"
+                },
+                {
+                  "$ref": "#/$defs/FrameLoaded"
+                },
+                {
+                  "$ref": "#/$defs/DialogPresent"
+                },
+                {
+                  "$ref": "#/$defs/HttpStatusIs"
+                },
+                {
+                  "$ref": "#/$defs/AllOf"
+                },
+                {
+                  "$ref": "#/$defs/AnyOf"
+                },
+                {
+                  "$ref": "#/$defs/Not"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Postcondition"
+        },
+        "precondition": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "all_of": "#/$defs/AllOf",
+                  "any_of": "#/$defs/AnyOf",
+                  "dialog_present": "#/$defs/DialogPresent",
+                  "element_absent": "#/$defs/ElementAbsent",
+                  "element_present": "#/$defs/ElementPresent",
+                  "frame_loaded": "#/$defs/FrameLoaded",
+                  "http_status": "#/$defs/HttpStatusIs",
+                  "not": "#/$defs/Not",
+                  "text_in_region": "#/$defs/TextInRegion",
+                  "url_matches": "#/$defs/UrlMatches"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/UrlMatches"
+                },
+                {
+                  "$ref": "#/$defs/ElementPresent"
+                },
+                {
+                  "$ref": "#/$defs/ElementAbsent"
+                },
+                {
+                  "$ref": "#/$defs/TextInRegion"
+                },
+                {
+                  "$ref": "#/$defs/FrameLoaded"
+                },
+                {
+                  "$ref": "#/$defs/DialogPresent"
+                },
+                {
+                  "$ref": "#/$defs/HttpStatusIs"
+                },
+                {
+                  "$ref": "#/$defs/AllOf"
+                },
+                {
+                  "$ref": "#/$defs/AnyOf"
+                },
+                {
+                  "$ref": "#/$defs/Not"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Precondition"
+        },
+        "provenance": {
+          "enum": [
+            "model",
+            "human",
+            "compiler",
+            "authored"
+          ],
+          "title": "Provenance",
+          "type": "string"
+        },
+        "rationale": {
+          "default": "",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "reentry_point": {
+          "default": false,
+          "title": "Reentry Point",
+          "type": "boolean"
+        },
+        "retry": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RetryPolicy"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "review_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Review Notes",
+          "type": "array"
+        },
+        "review_required": {
+          "default": false,
+          "title": "Review Required",
+          "type": "boolean"
+        },
+        "risk_class": {
+          "$ref": "#/$defs/RiskClass"
+        },
+        "route_handle": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Route Handle"
+        },
+        "select_by": {
+          "anyOf": [
+            {
+              "enum": [
+                "value",
+                "label"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Select By"
+        },
+        "states": {
+          "items": {
+            "$ref": "#/$defs/StateMapping"
+          },
+          "title": "States",
+          "type": "array"
+        },
+        "target": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TargetSpec"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "timeout_ms": {
+          "default": 10000,
+          "maximum": 120000,
+          "minimum": 500,
+          "title": "Timeout Ms",
+          "type": "integer"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ValueRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "provenance",
+        "action",
+        "risk_class",
+        "idempotent"
+      ],
+      "title": "Step",
+      "type": "object"
+    },
+    "StructuralLocator": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter_kinds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Adapter Kinds",
+          "type": "array"
+        },
+        "css": {
+          "title": "Css",
+          "type": "string"
+        },
+        "expected_count": {
+          "default": 1,
+          "title": "Expected Count",
+          "type": "integer"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "strategy": {
+          "const": "structural",
+          "default": "structural",
+          "title": "Strategy",
+          "type": "string"
+        }
+      },
+      "required": [
+        "score",
+        "rationale",
+        "css"
+      ],
+      "title": "StructuralLocator",
+      "type": "object"
+    },
+    "SuccessCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "checks": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "all_of": "#/$defs/AllOf",
+                "any_of": "#/$defs/AnyOf",
+                "dialog_present": "#/$defs/DialogPresent",
+                "element_absent": "#/$defs/ElementAbsent",
+                "element_present": "#/$defs/ElementPresent",
+                "frame_loaded": "#/$defs/FrameLoaded",
+                "http_status": "#/$defs/HttpStatusIs",
+                "not": "#/$defs/Not",
+                "text_in_region": "#/$defs/TextInRegion",
+                "url_matches": "#/$defs/UrlMatches"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/UrlMatches"
+              },
+              {
+                "$ref": "#/$defs/ElementPresent"
+              },
+              {
+                "$ref": "#/$defs/ElementAbsent"
+              },
+              {
+                "$ref": "#/$defs/TextInRegion"
+              },
+              {
+                "$ref": "#/$defs/FrameLoaded"
+              },
+              {
+                "$ref": "#/$defs/DialogPresent"
+              },
+              {
+                "$ref": "#/$defs/HttpStatusIs"
+              },
+              {
+                "$ref": "#/$defs/AllOf"
+              },
+              {
+                "$ref": "#/$defs/AnyOf"
+              },
+              {
+                "$ref": "#/$defs/Not"
+              }
+            ]
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "checks"
+      ],
+      "title": "SuccessCondition",
+      "type": "object"
+    },
+    "TargetApp": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter_requirements": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Adapter Requirements",
+          "type": "array"
+        },
+        "app_profile": {
+          "title": "App Profile",
+          "type": "string"
+        },
+        "app_profile_version_range": {
+          "title": "App Profile Version Range",
+          "type": "string"
+        },
+        "entry_point": {
+          "$ref": "#/$defs/EntryPoint"
+        },
+        "requires_session": {
+          "enum": [
+            "authenticated",
+            "none"
+          ],
+          "title": "Requires Session",
+          "type": "string"
+        },
+        "surface_type": {
+          "enum": [
+            "web",
+            "legacy-web",
+            "desktop"
+          ],
+          "title": "Surface Type",
+          "type": "string"
+        },
+        "vendor_product": {
+          "title": "Vendor Product",
+          "type": "string"
+        }
+      },
+      "required": [
+        "vendor_product",
+        "app_profile",
+        "app_profile_version_range",
+        "surface_type",
+        "entry_point",
+        "requires_session"
+      ],
+      "title": "TargetApp",
+      "type": "object"
+    },
+    "TargetSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "attribute": "#/$defs/AttributeLocator",
+                "coordinate": "#/$defs/CoordinateLocator",
+                "label_anchor": "#/$defs/LabelAnchorLocator",
+                "role_name": "#/$defs/RoleNameLocator",
+                "structural": "#/$defs/StructuralLocator",
+                "text": "#/$defs/TextLocator"
+              },
+              "propertyName": "strategy"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/RoleNameLocator"
+              },
+              {
+                "$ref": "#/$defs/LabelAnchorLocator"
+              },
+              {
+                "$ref": "#/$defs/AttributeLocator"
+              },
+              {
+                "$ref": "#/$defs/TextLocator"
+              },
+              {
+                "$ref": "#/$defs/StructuralLocator"
+              },
+              {
+                "$ref": "#/$defs/CoordinateLocator"
+              }
+            ]
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "frame_path": {
+          "items": {
+            "$ref": "#/$defs/FrameRef"
+          },
+          "title": "Frame Path",
+          "type": "array"
+        },
+        "review_required": {
+          "default": false,
+          "title": "Review Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "description",
+        "candidates"
+      ],
+      "title": "TargetSpec",
+      "type": "object"
+    },
+    "TextInRegion": {
+      "additionalProperties": false,
+      "description": "Regex ``pattern`` (case-insensitive) or ``equals`` a value (whitespace-normalized contains).",
+      "properties": {
+        "contains": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ValueRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "kind": {
+          "const": "text_in_region",
+          "default": "text_in_region",
+          "title": "Kind",
+          "type": "string"
+        },
+        "pattern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pattern"
+        },
+        "region": {
+          "$ref": "#/$defs/RegionSpec"
+        }
+      },
+      "title": "TextInRegion",
+      "type": "object"
+    },
+    "TextLocator": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter_kinds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Adapter Kinds",
+          "type": "array"
+        },
+        "expected_count": {
+          "default": 1,
+          "title": "Expected Count",
+          "type": "integer"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        },
+        "strategy": {
+          "const": "text",
+          "default": "text",
+          "title": "Strategy",
+          "type": "string"
+        },
+        "tag": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tag"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "score",
+        "rationale",
+        "text"
+      ],
+      "title": "TextLocator",
+      "type": "object"
+    },
+    "UrlMatches": {
+      "additionalProperties": false,
+      "properties": {
+        "frame_path": {
+          "items": {
+            "$ref": "#/$defs/FrameRef"
+          },
+          "title": "Frame Path",
+          "type": "array"
+        },
+        "kind": {
+          "const": "url_matches",
+          "default": "url_matches",
+          "title": "Kind",
+          "type": "string"
+        },
+        "params_equal": {
+          "additionalProperties": {
+            "$ref": "#/$defs/ValueRef"
+          },
+          "title": "Params Equal",
+          "type": "object"
+        },
+        "route": {
+          "title": "Route",
+          "type": "string"
+        }
+      },
+      "required": [
+        "route"
+      ],
+      "title": "UrlMatches",
+      "type": "object"
+    },
+    "ValueRef": {
+      "additionalProperties": false,
+      "description": "A value supplied at invocation time or fixed in the artifact. Secrets are not expressible.",
+      "properties": {
+        "from_input": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "From Input"
+        },
+        "literal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Literal"
+        },
+        "vocab": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vocab"
+        },
+        "vocab_from_input": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Vocab From Input"
+        }
+      },
+      "title": "ValueRef",
+      "type": "object"
+    }
+  },
+  "$id": "https://github.com/interface-cua/schemas/capability.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "capability": {
+      "$ref": "#/$defs/CapabilityInfo"
+    },
+    "compatibility": {
+      "$ref": "#/$defs/Compatibility"
+    },
+    "content_hash": {
+      "default": "",
+      "title": "Content Hash",
+      "type": "string"
+    },
+    "contract": {
+      "$ref": "#/$defs/Contract"
+    },
+    "extract": {
+      "items": {
+        "$ref": "#/$defs/Extractor"
+      },
+      "title": "Extract",
+      "type": "array"
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/Lifecycle"
+    },
+    "policy": {
+      "$ref": "#/$defs/ArtifactPolicy"
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance"
+    },
+    "review": {
+      "$ref": "#/$defs/ReviewInfo"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/Step"
+      },
+      "title": "Steps",
+      "type": "array"
+    },
+    "success": {
+      "$ref": "#/$defs/SuccessCondition"
+    },
+    "target": {
+      "$ref": "#/$defs/TargetApp"
+    }
+  },
+  "required": [
+    "capability",
+    "target",
+    "contract",
+    "policy",
+    "steps",
+    "success",
+    "review",
+    "provenance",
+    "compatibility"
+  ],
+  "title": "CapabilityArtifact",
+  "type": "object"
+}

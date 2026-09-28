@@ -1,0 +1,34 @@
+{
+  "run_id": "rep-20260927T204920-1ffc2b",
+  "mode": "replay",
+  "capability": "read-savings-balance@1.0.0",
+  "content_hash": "sha256:12c98921de5affb0e32472961398f8c95d2aa27d408030c0c04b14693880e6e3",
+  "tenant_id": "tenant-a",
+  "started_at": "2026-09-27T20:49:20.405Z",
+  "finished_at": "2026-09-27T20:49:21.557Z",
+  "duration_ms": 1151,
+  "evidence": [
+    {
+      "kind": "screenshot",
+      "path": "screenshots/2161464-s2-search-no-results.png",
+      "note": "masked; s2-search_no_results"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/2161464-s2-search-no-results.html",
+      "note": "sanitized; s2-search_no_results"
+    },
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [],
+  "overrides": [],
+  "status": "business_outcome",
+  "code": "member_not_found",
+  "details": {},
+  "step_id": "s2",
+  "recoveries": []
+}

@@ -1,0 +1,26 @@
+{
+  "id": "global",
+  "allowed_routes": [
+    "/login",
+    "/main",
+    "/members/**",
+    "/blank",
+    "/desktop/**"
+  ],
+  "denied_routes": [
+    "/__admin/**",
+    "/logout"
+  ],
+  "allowed_actions": [
+    "navigate",
+    "click",
+    "type",
+    "select",
+    "press",
+    "wait_for",
+    "extract",
+    "dialog_respond"
+  ],
+  "irreversible_in_replay": "require_approval",
+  "keep_query_params": []
+}

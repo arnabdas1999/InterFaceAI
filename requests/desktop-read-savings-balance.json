@@ -1,0 +1,25 @@
+{
+  "goal": "In the SynthCore Desktop client, look up the member by member ID and read their Share Savings Balance as money.",
+  "tenant_id": "tenant-d",
+  "entry": "member_inquiry",
+  "capability_id": "desktop-read-savings-balance",
+  "capability_name": "Read share savings balance (desktop client)",
+  "inputs": [
+    {
+      "name": "member_id",
+      "type": "string",
+      "pattern": "^\\d{5}$",
+      "description": "5-digit member ID",
+      "sensitivity": "pii_low"
+    }
+  ],
+  "expected_outputs": [
+    {
+      "name": "savings_balance",
+      "type": "money"
+    }
+  ],
+  "max_steps": 12,
+  "timeout_s": 240,
+  "escalation_mode": "fail_fast"
+}

@@ -1,0 +1,49 @@
+{
+  "applies_to_versions": ">=1.0.0,<2.0.0",
+  "approval": {
+    "approver": "platform-reviewer",
+    "at": "2026-09-27T20:03:14Z",
+    "content_hash": "sha256:893145b3aa3b8dda441b7545c390ebebbee8dfc5fc1568b053b1560ccb8fb811",
+    "note": "reviewed against tenant-b screen captures"
+  },
+  "author": "platform-engineer",
+  "capability_id": "read-savings-balance",
+  "content_hash": "sha256:893145b3aa3b8dda441b7545c390ebebbee8dfc5fc1568b053b1560ccb8fb811",
+  "description": "Prairie Plains configures SynthCore's member search with a <button> captioned 'Find' instead of the stock 'Search' input. Locator-only override for step s2 (click search); contract, policy, risk and flow are unchanged.",
+  "id": "tenant-b/read-savings-balance/search-button",
+  "ops": [
+    {
+      "candidates": [
+        {
+          "adapter_kinds": [
+            "web"
+          ],
+          "exact": true,
+          "expected_count": 1,
+          "name": "Find",
+          "rationale": "Tenant-b caption for the member search submit button.",
+          "role": "button",
+          "score": 0.9,
+          "strategy": "role_name"
+        },
+        {
+          "adapter_kinds": [
+            "web"
+          ],
+          "attributes": {
+            "type": "submit"
+          },
+          "expected_count": 1,
+          "rationale": "Only submit button on the tenant-b search form.",
+          "score": 0.7,
+          "strategy": "attribute",
+          "tag": "button"
+        }
+      ],
+      "op": "replace_candidates",
+      "step": "s2"
+    }
+  ],
+  "tenant_id": "tenant-b",
+  "version": "1.0.0"
+}

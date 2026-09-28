@@ -1,0 +1,9 @@
+{
+  "note": "What the calling agent received (synthetic data).",
+  "outputs": {
+    "savings_balance": {
+      "amount": "1234.56",
+      "currency": "USD"
+    }
+  }
+}

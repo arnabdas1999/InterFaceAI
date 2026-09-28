@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body %}
+<table class="grid" cellspacing="0" width="520">
+<tr><td colspan="2" class="lbl">Sub-Account Opened</td></tr>
+<tr><td colspan="2"><div class="banner-info">The sub-account was opened successfully.</div></td></tr>
+<tr><td class="lbl" width="35%">{{ b.member_id }}</td><td>{{ mid }}</td></tr>
+<tr><td class="lbl">Confirmation Number</td><td>{{ e.confirmation_number }}</td></tr>
+<tr><td class="lbl">New Account</td><td>Account ending in {{ e.account_number[-4:] }}</td></tr>
+<tr><td colspan="2"><a href="/members/{{ mid }}">Return to {{ b.member }}</a></td></tr>
+</table>
+{% endblock %}

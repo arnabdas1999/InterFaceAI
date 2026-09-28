@@ -1,0 +1,139 @@
+{
+  "groups": [
+    {
+      "capability": "desktop-read-savings-balance@1.0.0",
+      "tenant": "tenant-d",
+      "runs": 4,
+      "statuses": {
+        "success": 3,
+        "business_outcome": 1
+      },
+      "failure_rate": 0.0,
+      "failures": {},
+      "business_outcomes": {
+        "member_not_found": 1
+      },
+      "recoveries": {},
+      "drift_signals": {},
+      "overrides": [],
+      "success_duration_ms": {
+        "mean": 4596,
+        "max": 5015
+      },
+      "alerts": []
+    },
+    {
+      "capability": "open-sub-account@2.0.0",
+      "tenant": "tenant-a",
+      "runs": 4,
+      "statuses": {
+        "success": 3,
+        "business_outcome": 1
+      },
+      "failure_rate": 0.0,
+      "failures": {},
+      "business_outcomes": {
+        "member_not_found": 1
+      },
+      "recoveries": {},
+      "drift_signals": {},
+      "overrides": [],
+      "success_duration_ms": {
+        "mean": 2209,
+        "max": 2782
+      },
+      "alerts": []
+    },
+    {
+      "capability": "read-savings-balance@1.0.0",
+      "tenant": "tenant-a",
+      "runs": 11,
+      "statuses": {
+        "business_outcome": 2,
+        "success": 6,
+        "failure": 2,
+        "rejected": 1
+      },
+      "failure_rate": 0.2,
+      "failures": {
+        "permission_denied": 1,
+        "unknown_state": 1
+      },
+      "business_outcomes": {
+        "member_not_found": 2
+      },
+      "recoveries": {
+        "dialog_handled": 7,
+        "session_reauthenticated": 1,
+        "transient_retry": 1,
+        "interstitial_dismissed": 1,
+        "slow_load_waited": 1
+      },
+      "drift_signals": {
+        "s3:locator_fallback_used": 1
+      },
+      "overrides": [],
+      "success_duration_ms": {
+        "mean": 3273,
+        "max": 5462
+      },
+      "alerts": [
+        "locator drift: fallback candidates in use - review and re-validate the locators (new minor version)"
+      ]
+    },
+    {
+      "capability": "read-savings-balance@1.0.0",
+      "tenant": "tenant-b",
+      "runs": 3,
+      "statuses": {
+        "success": 2,
+        "failure": 1
+      },
+      "failure_rate": 0.333,
+      "failures": {
+        "locator_not_found": 1
+      },
+      "business_outcomes": {},
+      "recoveries": {
+        "assisted_fallback": 1,
+        "dialog_handled": 2
+      },
+      "drift_signals": {
+        "s2:assisted_fallback": 1
+      },
+      "overrides": [
+        "tenant-b/read-savings-balance/search-button@1.0.0#893145b3aa3b"
+      ],
+      "success_duration_ms": {
+        "mean": 9475,
+        "max": 16887
+      },
+      "alerts": [
+        "locator drift: fallback candidates in use - review and re-validate the locators (new minor version)",
+        "failure rate 33% above 20%"
+      ]
+    },
+    {
+      "capability": "read-savings-balance@1.0.0",
+      "tenant": "tenant-c",
+      "runs": 1,
+      "statuses": {
+        "success": 1
+      },
+      "failure_rate": 0.0,
+      "failures": {},
+      "business_outcomes": {},
+      "recoveries": {
+        "dialog_handled": 1
+      },
+      "drift_signals": {},
+      "overrides": [],
+      "success_duration_ms": {
+        "mean": 4425,
+        "max": 4425
+      },
+      "alerts": []
+    }
+  ],
+  "runs": 23
+}

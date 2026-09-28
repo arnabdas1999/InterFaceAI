@@ -1,0 +1,71 @@
+{
+  "id": "iv-d04b299a",
+  "run_id": "rep-20261003T210850-f0ded1",
+  "kind": "unknown_state",
+  "capability": "read-savings-balance@1.0.0",
+  "tenant_id": "tenant-a",
+  "step_id": "s3",
+  "step_description": "Click button 'View Accounts'",
+  "last_checkpoint_step": "s2",
+  "reason_code": "unknown_state",
+  "explanation": "'Click button 'View Accounts'' is covered by an unrecognized modal or disabled",
+  "route": "/members/⟦input:member_id#0f8d7d4e⟧",
+  "screenshot": "screenshots/1733302-s3-escalation.png",
+  "expected": "Click button 'View Accounts' actionable",
+  "observed": "control obscured by an unknown overlay",
+  "control": {
+    "session_id": "sess-5bdb9a15ba",
+    "state": "AUTOMATION_ACTIVE",
+    "owner": "automation",
+    "expected_owner": "automation",
+    "version": 6
+  },
+  "permitted_resolutions": [
+    "resume",
+    "resume_at_step",
+    "complete",
+    "abort"
+  ],
+  "claim_deadline": 1791062333.4583755,
+  "max_human_active_s": 900,
+  "approval_valid_s": 300,
+  "created_at": 1791061733.4583755,
+  "notified_at": 1791061733.4669716,
+  "claimed_at": 1791061789.3106086,
+  "resolved_at": 1791061831.9143395,
+  "operator_id": "alice",
+  "resolution": {
+    "kind": "resume",
+    "operator_id": "alice",
+    "note": "done"
+  },
+  "status": "resolved",
+  "human_actions": [
+    {
+      "at": 1791061794.6186628,
+      "operator": "alice",
+      "kind": "click",
+      "source": "remote_console",
+      "policy": "allow",
+      "risk": "reversible",
+      "role": "checkbox",
+      "name": "I have a permissible purpose",
+      "x": 405,
+      "y": 278,
+      "route_after": "/members/⟦input:member_id#0f8d7d4e⟧"
+    },
+    {
+      "at": 1791061798.3254638,
+      "operator": "alice",
+      "kind": "click",
+      "source": "remote_console",
+      "policy": "allow",
+      "risk": "reversible",
+      "role": "button",
+      "name": "Acknowledge",
+      "x": 853,
+      "y": 315,
+      "route_after": "/members/⟦input:member_id#0f8d7d4e⟧"
+    }
+  ]
+}

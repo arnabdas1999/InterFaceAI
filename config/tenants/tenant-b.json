@@ -1,0 +1,21 @@
+{
+  "tenant_id": "tenant-b",
+  "display_name": "Prairie Plains CB (synthetic variant: same product, different vocabulary)",
+  "app_profile": "synthcore@1.0.0",
+  "base_url": "http://127.0.0.1:8775",
+  "product_version": "4.2.7",
+  "vocabulary": {
+    "member": "Customer",
+    "member_id": "Customer No.",
+    "member_inquiry": "Customer Lookup",
+    "share_savings": "Savings",
+    "share_draft": "Checking",
+    "share_certificate": "Certificate of Deposit",
+    "open_sub_account": "Add Account"
+  },
+  "secret_ref": "synthcore/operator",
+  "override_refs": [
+    "overrides/tenant-b/read-savings-balance.search-button.json"
+  ],
+  "data_classification": "synthetic"
+}

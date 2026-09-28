@@ -1,0 +1,21 @@
+{
+  "tenant_id": "tenant-d",
+  "display_name": "Harborview FCU branch client (synthetic; SynthCore Desktop)",
+  "app_profile": "synthcore-desktop@1.0.0",
+  "base_url": "desktop://synthcore-desktop",
+  "product_version": "4.2.0",
+  "vocabulary": {},
+  "secret_ref": "synthcore/operator",
+  "override_refs": [],
+  "data_classification": "synthetic",
+  "surface": "desktop",
+  "desktop_launch": [
+    "powershell",
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "src/target_app/desktop/SynthCoreDesktop.ps1"
+  ],
+  "window_title": "SynthCore Desktop"
+}

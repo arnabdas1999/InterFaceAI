@@ -1,0 +1,8 @@
+# Store text with LF on every platform, so generated files (schemas, artifacts, evidence) compare
+# byte-for-byte between Windows and Linux CI. Content hashes are computed over parsed models, not bytes.
+* text=auto eol=lf
+*.png binary
+*.pdf binary
+*.zip binary
+*.sqlite binary
+*.ps1 text eol=crlf

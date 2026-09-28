@@ -1,0 +1,34 @@
+# Python / tooling
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# Secrets and local keys - never commit
+.env
+.env.*
+!.env.example
+*.hmac.key
+.cua/
+
+# Per-run output (sanitized copies are exported to evidence/ deliberately)
+runs/
+*.sqlite
+*.sqlite3
+*.db
+
+# Raw browser artifacts
+playwright-profile/
+# Playwright traces hold unmasked DOM and headers: never committed, not even under evidence/
+**/trace.zip
+
+# Local scratch (assignment PDF tooling)
+tmp/
+
+# Local planning notes (not part of the submission)
+DEVELOPMENT_PLAN.md

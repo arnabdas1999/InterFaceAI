@@ -1,0 +1,353 @@
+{
+  "run_id": "disc-20260927T194320-2cb1b7",
+  "request": {
+    "goal": "Look up the member by member ID and read their current Share Savings balance. Open the Share Savings account detail and extract the Current Balance as money.",
+    "tenant_id": "tenant-a",
+    "entry": "member_search",
+    "capability_id": "read-savings-balance",
+    "capability_name": "Read share savings balance",
+    "inputs": [
+      {
+        "name": "member_id",
+        "type": "string",
+        "description": "5-digit member ID",
+        "pattern": "^\\d{5}$",
+        "sensitivity": "pii_low"
+      }
+    ],
+    "expected_outputs": [
+      {
+        "name": "savings_balance",
+        "type": "money"
+      }
+    ],
+    "max_steps": 20,
+    "timeout_s": 300,
+    "escalation_mode": "fail_fast",
+    "headed": false
+  },
+  "model": "gemini-3.8-flash",
+  "prompt_template_hash": "sha256:5490e1fd0efc7dea",
+  "steps": [
+    {
+      "index": 1,
+      "provenance": "model",
+      "action": "type",
+      "target": {
+        "description": "Type input member_id into 'Member ID'",
+        "frame_path": [],
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.85,
+            "rationale": "Control in the table row labelled 'Member ID'; legacy markup has no <label> wiring.",
+            "strategy": "label_anchor",
+            "anchor_text": "Member ID",
+            "relation": "same_row_following",
+            "control": "input"
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.7,
+            "rationale": "Stable, non-generated attribute(s) on the control.",
+            "strategy": "attribute",
+            "tag": "input",
+            "attributes": {
+              "name": "mbr"
+            }
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.3,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "strategy": "structural",
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(2) > input:nth-of-type(1)"
+          }
+        ],
+        "review_required": false
+      },
+      "value": {
+        "from_input": "member_id"
+      },
+      "risk": "sensitive_reversible",
+      "intent_risk": "read_only",
+      "submits_form": false,
+      "element_role": "textbox",
+      "route_before": "/members/search",
+      "route_after": "/members/search",
+      "frames_after": [],
+      "dialog_states": [],
+      "recoveries": [],
+      "description": "Type input member_id into 'Member ID'",
+      "rationale": "Enter the member ID into the search field.",
+      "elapsed_ms": 10,
+      "dead_end": false
+    },
+    {
+      "index": 2,
+      "provenance": "model",
+      "action": "click",
+      "target": {
+        "description": "Click button 'Search'",
+        "frame_path": [],
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.9,
+            "rationale": "Accessible role 'button' with name from value; survives layout and markup changes.",
+            "strategy": "role_name",
+            "role": "button",
+            "name": "Search",
+            "exact": true
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.3,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "strategy": "structural",
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1) > input:nth-of-type(1)"
+          }
+        ],
+        "review_required": false
+      },
+      "risk": "sensitive_reversible",
+      "intent_risk": "read_only",
+      "submits_form": true,
+      "element_role": "button",
+      "route_before": "/members/search",
+      "route_after": "/members/:member_id",
+      "frames_after": [
+        {
+          "frame_path": [
+            {
+              "name": "acctFrame"
+            }
+          ],
+          "route": "/blank"
+        }
+      ],
+      "dialog_states": [],
+      "recoveries": [],
+      "description": "Click button 'Search'",
+      "rationale": "Click Search to find the member.",
+      "elapsed_ms": 60,
+      "dead_end": false
+    },
+    {
+      "index": 3,
+      "provenance": "model",
+      "action": "click",
+      "target": {
+        "description": "Click button 'View Accounts'",
+        "frame_path": [],
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.9,
+            "rationale": "Accessible role 'button' with name from value; survives layout and markup changes.",
+            "strategy": "role_name",
+            "role": "button",
+            "name": "View Accounts",
+            "exact": true
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.3,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "strategy": "structural",
+            "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > input:nth-of-type(1)"
+          }
+        ],
+        "review_required": false
+      },
+      "risk": "reversible",
+      "intent_risk": "read_only",
+      "submits_form": false,
+      "element_role": "button",
+      "route_before": "/members/:member_id",
+      "route_after": "/members/:member_id",
+      "frames_after": [
+        {
+          "frame_path": [
+            {
+              "name": "acctFrame"
+            }
+          ],
+          "route": "/members/:member_id/accounts"
+        }
+      ],
+      "dialog_states": [
+        "dialog_view_balances"
+      ],
+      "recoveries": [],
+      "description": "Click button 'View Accounts'",
+      "rationale": "Click View Accounts to view the member's accounts.",
+      "elapsed_ms": 29,
+      "dead_end": false
+    },
+    {
+      "index": 4,
+      "provenance": "model",
+      "action": "click",
+      "target": {
+        "description": "Click link 'Share Savings'",
+        "frame_path": [
+          {
+            "name": "acctFrame"
+          }
+        ],
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.9,
+            "rationale": "Accessible role 'link' with name from content; survives layout and markup changes.",
+            "strategy": "role_name",
+            "role": "link",
+            "name": "Share Savings",
+            "exact": true
+          },
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.3,
+            "rationale": "Structural path; brittle, kept as a late fallback only.",
+            "strategy": "structural",
+            "css": "body > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(1) > a:nth-of-type(1)"
+          }
+        ],
+        "review_required": false
+      },
+      "risk": "reversible",
+      "intent_risk": "read_only",
+      "submits_form": false,
+      "element_role": "link",
+      "route_before": "/members/:member_id",
+      "route_after": "/members/:member_id",
+      "frames_after": [
+        {
+          "frame_path": [
+            {
+              "name": "acctFrame"
+            }
+          ],
+          "route": "/members/:member_id/accounts/savings"
+        }
+      ],
+      "dialog_states": [],
+      "recoveries": [],
+      "description": "Click link 'Share Savings'",
+      "rationale": "Click Share Savings link to open account details.",
+      "elapsed_ms": 30,
+      "dead_end": false
+    }
+  ],
+  "final_route": "/members/:member_id",
+  "final_frames": [
+    {
+      "frame_path": [
+        {
+          "name": "acctFrame"
+        }
+      ],
+      "route": "/members/:member_id/accounts/savings"
+    }
+  ],
+  "checkpoint": [
+    {
+      "label_text": "Account Type",
+      "frame_path": [
+        {
+          "name": "acctFrame"
+        }
+      ],
+      "equals_input": null,
+      "vocab_from_input": null,
+      "equals_text": "Share Savings"
+    },
+    {
+      "label_text": "Member ID",
+      "frame_path": [
+        {
+          "name": "acctFrame"
+        }
+      ],
+      "equals_input": "member_id",
+      "vocab_from_input": null,
+      "equals_text": null
+    }
+  ],
+  "outputs": [
+    {
+      "name": "savings_balance",
+      "type": "money"
+    }
+  ],
+  "extract": [
+    {
+      "output_name": "savings_balance",
+      "output_type": "money",
+      "label_text": "Current Balance",
+      "target": {
+        "description": "value cell labelled 'Current Balance'",
+        "frame_path": [
+          {
+            "name": "acctFrame"
+          }
+        ],
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "web"
+            ],
+            "expected_count": 1,
+            "score": 0.8,
+            "rationale": "Value read from the cell beside its visible label; no ids in legacy markup.",
+            "strategy": "label_anchor",
+            "anchor_text": "Current Balance",
+            "relation": "same_row_following",
+            "control": "cell"
+          }
+        ],
+        "review_required": false
+      }
+    }
+  ],
+  "observed_states": [],
+  "routes_seen": [
+    "/blank",
+    "/login",
+    "/members/:member_id/accounts",
+    "/members/:member_id/accounts/savings",
+    "/members/lookup",
+    "/members/search"
+  ],
+  "extract_after": {
+    "savings_balance": 4
+  }
+}

@@ -1,0 +1,453 @@
+{
+  "capability": {
+    "description": "In the SynthCore Desktop client, look up the member by member ID and read their Share Savings Balance as money.",
+    "id": "desktop-read-savings-balance",
+    "name": "Read share savings balance (desktop client)",
+    "version": "1.0.0"
+  },
+  "compatibility": {
+    "app_profile": "synthcore-desktop@1.0.0",
+    "base_tenant": "tenant-d",
+    "product": "SynthCore Desktop",
+    "tenant_override_refs": [],
+    "version_range": ">=4.2,<5.0"
+  },
+  "content_hash": "sha256:0f04f7d8b6099b2d0fa845916065c1c1c41ceac43a41f59db41424b5ba76418e",
+  "contract": {
+    "business_outcomes": [
+      {
+        "code": "member_not_found",
+        "description": "Search returned no records.",
+        "details_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      {
+        "code": "validation_rejected",
+        "description": "The client rejected the input.",
+        "details_schema": {
+          "additionalProperties": false,
+          "properties": {
+            "message": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      }
+    ],
+    "inputs": {
+      "additionalProperties": false,
+      "properties": {
+        "member_id": {
+          "description": "5-digit member ID",
+          "pattern": "^\\d{5}$",
+          "type": "string",
+          "x-sensitivity": "pii_low"
+        }
+      },
+      "required": [
+        "member_id"
+      ],
+      "type": "object"
+    },
+    "outputs": {
+      "additionalProperties": false,
+      "properties": {
+        "savings_balance": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "pattern": "^-?\\d+\\.\\d{2}$",
+              "type": "string"
+            },
+            "currency": {
+              "pattern": "^[A-Z]{3}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "amount",
+            "currency"
+          ],
+          "type": "object",
+          "x-cua-type": "money",
+          "x-sensitivity": "financial"
+        }
+      },
+      "required": [
+        "savings_balance"
+      ],
+      "type": "object"
+    },
+    "side_effects": "none"
+  },
+  "extract": [
+    {
+      "after_step": "s2",
+      "method": "text",
+      "output": "savings_balance",
+      "sensitivity": "financial",
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "desktop-uia"
+            ],
+            "anchor_text": "vocab:share_savings_balance",
+            "control": "cell",
+            "expected_count": 1,
+            "rationale": "Value read from the cell beside its visible label; no ids in legacy markup.",
+            "relation": "same_row_following",
+            "score": 0.8,
+            "strategy": "label_anchor"
+          }
+        ],
+        "description": "value cell labelled 'Share Savings Balance:'",
+        "frame_path": [],
+        "review_required": false
+      },
+      "type": "money"
+    }
+  ],
+  "lifecycle": {
+    "approvals": [
+      {
+        "approver": "demo-reviewer",
+        "at": "2026-09-27T20:45:41Z",
+        "content_hash": "sha256:0f04f7d8b6099b2d0fa845916065c1c1c41ceac43a41f59db41424b5ba76418e",
+        "note": "reviewed the review summary and validation runs"
+      }
+    ],
+    "status": "approved",
+    "transitions": [
+      {
+        "actor": "cua-compiler/1.0",
+        "at": "2026-09-27T20:43:53Z",
+        "note": "compiled from verified discovery run",
+        "run_ids": [
+          "disc-20260927T204319-164236"
+        ],
+        "to": "draft"
+      },
+      {
+        "actor": "cua validate (evidence script)",
+        "at": "2026-09-27T20:45:41Z",
+        "note": "automatic validation replays passed",
+        "run_ids": [
+          "val-20260927T204527-c6e543",
+          "val-20260927T204532-598c95",
+          "val-20260927T204536-4b8b2d"
+        ],
+        "to": "validated"
+      },
+      {
+        "actor": "demo-reviewer",
+        "at": "2026-09-27T20:45:41Z",
+        "note": "reviewed the review summary and validation runs",
+        "run_ids": [],
+        "to": "approved"
+      }
+    ]
+  },
+  "policy": {
+    "allowed_actions": [
+      "click",
+      "dialog_respond",
+      "extract",
+      "navigate",
+      "type",
+      "wait_for"
+    ],
+    "allowed_routes": [
+      "/desktop/member-inquiry"
+    ]
+  },
+  "provenance": {
+    "authored_patches": [],
+    "compiler_version": "cua-compiler/1.0",
+    "created_at": "2026-09-27T20:43:53Z",
+    "discovery_goal": "In the SynthCore Desktop client, look up the member by member ID and read their Share Savings Balance as money.",
+    "dropped_actions": 0,
+    "executed_actions": 2,
+    "model": "gemini-3.6-flash",
+    "prompt_template_hash": "sha256:5490e1fd0efc7dea",
+    "source_run_id": "disc-20260927T204319-164236"
+  },
+  "review": {
+    "items": [],
+    "review_required": false
+  },
+  "schema_version": "1.0",
+  "steps": [
+    {
+      "action": "type",
+      "description": "Type input member_id into 'Member ID'",
+      "id": "s1",
+      "idempotent": true,
+      "on_success": "s2",
+      "precondition": {
+        "kind": "element_present",
+        "target": {
+          "candidates": [
+            {
+              "adapter_kinds": [
+                "desktop-uia"
+              ],
+              "anchor_text": "vocab:member_id",
+              "control": "input",
+              "expected_count": 1,
+              "rationale": "Unnamed control; label is the static text to its left.",
+              "relation": "same_row_following",
+              "score": 0.85,
+              "strategy": "label_anchor"
+            },
+            {
+              "adapter_kinds": [
+                "desktop-uia"
+              ],
+              "attributes": {
+                "automation_id": "txtMbr"
+              },
+              "expected_count": 1,
+              "rationale": "Stable UIA AutomationId (the form's control name).",
+              "score": 0.7,
+              "strategy": "attribute",
+              "tag": "EditControl"
+            }
+          ],
+          "description": "Type input member_id into 'Member ID'",
+          "frame_path": [],
+          "review_required": false
+        }
+      },
+      "provenance": "model",
+      "rationale": "Type the member ID into the search input box.",
+      "reentry_point": true,
+      "review_notes": [],
+      "review_required": false,
+      "risk_class": "reversible",
+      "states": [],
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "desktop-uia"
+            ],
+            "anchor_text": "vocab:member_id",
+            "control": "input",
+            "expected_count": 1,
+            "rationale": "Unnamed control; label is the static text to its left.",
+            "relation": "same_row_following",
+            "score": 0.85,
+            "strategy": "label_anchor"
+          },
+          {
+            "adapter_kinds": [
+              "desktop-uia"
+            ],
+            "attributes": {
+              "automation_id": "txtMbr"
+            },
+            "expected_count": 1,
+            "rationale": "Stable UIA AutomationId (the form's control name).",
+            "score": 0.7,
+            "strategy": "attribute",
+            "tag": "EditControl"
+          }
+        ],
+        "description": "Type input member_id into 'Member ID'",
+        "frame_path": [],
+        "review_required": false
+      },
+      "timeout_ms": 10000,
+      "value": {
+        "from_input": "member_id"
+      }
+    },
+    {
+      "action": "click",
+      "description": "Click button 'Search'",
+      "id": "s2",
+      "idempotent": true,
+      "on_success": "end",
+      "postcondition": {
+        "kind": "text_in_region",
+        "pattern": "\\S",
+        "region": {
+          "any_frame": false,
+          "frame_path": [],
+          "target": {
+            "candidates": [
+              {
+                "adapter_kinds": [
+                  "desktop-uia"
+                ],
+                "anchor_text": "vocab:share_savings_balance",
+                "control": "cell",
+                "expected_count": 1,
+                "rationale": "Value read from the cell beside its visible label; no ids in legacy markup.",
+                "relation": "same_row_following",
+                "score": 0.8,
+                "strategy": "label_anchor"
+              }
+            ],
+            "description": "value cell labelled 'Share Savings Balance:'",
+            "frame_path": [],
+            "review_required": false
+          }
+        }
+      },
+      "precondition": {
+        "kind": "element_present",
+        "target": {
+          "candidates": [
+            {
+              "adapter_kinds": [
+                "desktop-uia"
+              ],
+              "exact": true,
+              "expected_count": 1,
+              "name": "Search",
+              "rationale": "UIA control type ButtonControl with name 'Search'.",
+              "role": "button",
+              "score": 0.9,
+              "strategy": "role_name"
+            },
+            {
+              "adapter_kinds": [
+                "desktop-uia"
+              ],
+              "attributes": {
+                "automation_id": "btnSearch"
+              },
+              "expected_count": 1,
+              "rationale": "Stable UIA AutomationId (the form's control name).",
+              "score": 0.7,
+              "strategy": "attribute",
+              "tag": "ButtonControl"
+            }
+          ],
+          "description": "Click button 'Search'",
+          "frame_path": [],
+          "review_required": false
+        }
+      },
+      "provenance": "model",
+      "rationale": "Click search button to retrieve member details.",
+      "reentry_point": false,
+      "retry": {
+        "backoff_ms": 400,
+        "max_attempts": 2
+      },
+      "review_notes": [],
+      "review_required": false,
+      "risk_class": "reversible",
+      "states": [
+        {
+          "on": "business_outcome",
+          "outcome_code": "member_not_found",
+          "state": "search_no_results"
+        },
+        {
+          "on": "business_outcome",
+          "outcome_code": "validation_rejected",
+          "state": "validation_banner"
+        }
+      ],
+      "target": {
+        "candidates": [
+          {
+            "adapter_kinds": [
+              "desktop-uia"
+            ],
+            "exact": true,
+            "expected_count": 1,
+            "name": "Search",
+            "rationale": "UIA control type ButtonControl with name 'Search'.",
+            "role": "button",
+            "score": 0.9,
+            "strategy": "role_name"
+          },
+          {
+            "adapter_kinds": [
+              "desktop-uia"
+            ],
+            "attributes": {
+              "automation_id": "btnSearch"
+            },
+            "expected_count": 1,
+            "rationale": "Stable UIA AutomationId (the form's control name).",
+            "score": 0.7,
+            "strategy": "attribute",
+            "tag": "ButtonControl"
+          }
+        ],
+        "description": "Click button 'Search'",
+        "frame_path": [],
+        "review_required": false
+      },
+      "timeout_ms": 10000
+    }
+  ],
+  "success": {
+    "checks": [
+      {
+        "frame_path": [],
+        "kind": "url_matches",
+        "params_equal": {},
+        "route": "/desktop/member-inquiry"
+      },
+      {
+        "contains": {
+          "from_input": "member_id"
+        },
+        "kind": "text_in_region",
+        "region": {
+          "any_frame": false,
+          "frame_path": [],
+          "target": {
+            "candidates": [
+              {
+                "adapter_kinds": [
+                  "desktop-uia"
+                ],
+                "anchor_text": "Member:",
+                "control": "cell",
+                "expected_count": 1,
+                "rationale": "Checkpoint value read beside its label.",
+                "relation": "same_row_following",
+                "score": 0.8,
+                "strategy": "label_anchor"
+              }
+            ],
+            "description": "value cell labelled 'Member:'",
+            "frame_path": [],
+            "review_required": false
+          }
+        }
+      }
+    ],
+    "description": "Member: shows the input member_id"
+  },
+  "target": {
+    "adapter_requirements": [
+      "desktop-uia"
+    ],
+    "app_profile": "synthcore-desktop",
+    "app_profile_version_range": ">=1.0.0,<2.0.0",
+    "entry_point": {
+      "route": "/desktop/member-inquiry",
+      "route_handle": "member_inquiry"
+    },
+    "requires_session": "authenticated",
+    "surface_type": "desktop",
+    "vendor_product": "SynthCore Desktop"
+  }
+}

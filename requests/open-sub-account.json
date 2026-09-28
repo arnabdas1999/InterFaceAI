@@ -1,0 +1,16 @@
+{
+  "goal": "Look up the member by member ID, start opening a new sub-account with the given product and nickname, and stop at the review screen. Do NOT open the account.",
+  "tenant_id": "tenant-a",
+  "entry": "member_search",
+  "capability_id": "open-sub-account",
+  "capability_name": "Open a sub-account (review, then approved commit)",
+  "inputs": [
+    {"name": "member_id", "type": "string", "pattern": "^\\d{5}$", "description": "5-digit member ID", "sensitivity": "pii_low"},
+    {"name": "product", "type": "enum", "enum": ["share_savings", "money_market", "share_certificate"], "description": "Product to open (vocabulary key)", "sensitivity": "public"},
+    {"name": "nickname", "type": "string", "pattern": "^[A-Za-z0-9 ]{1,24}$", "description": "Account nickname", "sensitivity": "pii_low"}
+  ],
+  "expected_outputs": [],
+  "max_steps": 20,
+  "timeout_s": 300,
+  "escalation_mode": "fail_fast"
+}

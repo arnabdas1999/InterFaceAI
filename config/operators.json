@@ -1,0 +1,9 @@
+{
+  "_comment": "Operator identities, roles, and tenant scopes. Tokens are issued with `cua operator token create <id>`; only their hashes are stored (git-ignored .cua/operator_tokens.json). Production maps SSO groups onto the same roles/tenants.",
+  "operators": [
+    {"id": "alice", "roles": ["operator"], "tenants": ["tenant-a"]},
+    {"id": "bob", "roles": ["operator"], "tenants": ["tenant-b"]},
+    {"id": "supervisor-1", "roles": ["operator", "supervisor"], "tenants": ["tenant-a", "tenant-b"]},
+    {"id": "scripted-operator", "roles": ["operator"], "tenants": ["tenant-a", "tenant-b"]}
+  ]
+}

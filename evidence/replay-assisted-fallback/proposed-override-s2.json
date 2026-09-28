@@ -1,0 +1,40 @@
+{
+  "id": "tenant-b/read-savings-balance/s2-assisted",
+  "version": "0.1.0",
+  "tenant_id": "tenant-b",
+  "capability_id": "read-savings-balance",
+  "applies_to_versions": "==1.0.0",
+  "description": "PROPOSED by assisted fallback (gemini-3.6-flash) in run rep-20260927T205039-194c56; needs review and approval before use.",
+  "author": "assisted-fallback/gemini-3.6-flash",
+  "ops": [
+    {
+      "op": "prepend_candidate",
+      "step": "s2",
+      "candidates": [
+        {
+          "adapter_kinds": [
+            "web"
+          ],
+          "expected_count": 1,
+          "score": 0.9,
+          "rationale": "Accessible role 'button' with name from content; survives layout and markup changes.",
+          "strategy": "role_name",
+          "role": "button",
+          "name": "Find",
+          "exact": true
+        },
+        {
+          "adapter_kinds": [
+            "web"
+          ],
+          "expected_count": 1,
+          "score": 0.3,
+          "rationale": "Structural path; brittle, kept as a late fallback only.",
+          "strategy": "structural",
+          "css": "body > table:nth-of-type(2) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(1) > button:nth-of-type(1)"
+        }
+      ]
+    }
+  ],
+  "content_hash": "sha256:5f53a7c700181784b4b15c3403b8f27f7ead36ea825170f7e83b1d8eadc69245"
+}

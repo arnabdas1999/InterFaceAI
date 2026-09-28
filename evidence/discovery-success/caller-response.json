@@ -1,0 +1,9 @@
+{
+  "note": "What the caller received (synthetic data). Persisted copies are masked.",
+  "outputs": {
+    "savings_balance": {
+      "amount": "1234.56",
+      "currency": "USD"
+    }
+  }
+}

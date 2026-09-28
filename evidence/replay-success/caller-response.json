@@ -1,0 +1,9 @@
+{
+  "note": "What the calling agent received (synthetic data). The persisted run-result.json is masked.",
+  "outputs": {
+    "savings_balance": {
+      "amount": "15020.00",
+      "currency": "USD"
+    }
+  }
+}

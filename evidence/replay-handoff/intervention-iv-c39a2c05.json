@@ -1,0 +1,71 @@
+{
+  "id": "iv-c39a2c05",
+  "run_id": "rep-20260927T204931-eaf52f",
+  "kind": "unknown_state",
+  "capability": "read-savings-balance@1.0.0",
+  "tenant_id": "tenant-a",
+  "step_id": "s3",
+  "step_description": "Click button 'View Accounts'",
+  "last_checkpoint_step": "s2",
+  "reason_code": "unknown_state",
+  "explanation": "'Click button 'View Accounts'' is covered by an unrecognized modal or disabled",
+  "route": "/members/⟦input:member_id#0f8d7d4e⟧",
+  "screenshot": "screenshots/2173473-s3-escalation.png",
+  "expected": "Click button 'View Accounts' actionable",
+  "observed": "control obscured by an unknown overlay",
+  "control": {
+    "session_id": "sess-926e34850d",
+    "state": "AUTOMATION_ACTIVE",
+    "owner": "automation",
+    "expected_owner": "automation",
+    "version": 6
+  },
+  "permitted_resolutions": [
+    "resume",
+    "resume_at_step",
+    "complete",
+    "abort"
+  ],
+  "claim_deadline": 1790542773.6416414,
+  "max_human_active_s": 900,
+  "approval_valid_s": 300,
+  "created_at": 1790542173.6416414,
+  "notified_at": 1790542173.9564874,
+  "claimed_at": 1790542173.7228167,
+  "resolved_at": 1790542174.6177757,
+  "operator_id": "scripted-operator",
+  "resolution": {
+    "kind": "resume",
+    "operator_id": "scripted-operator",
+    "note": "[scripted_stand_in] completed the compliance attestation; handing back"
+  },
+  "status": "resolved",
+  "human_actions": [
+    {
+      "at": 1790542174.0465505,
+      "operator": "scripted-operator",
+      "kind": "click",
+      "source": "remote_console",
+      "policy": "allow",
+      "risk": "reversible",
+      "role": "checkbox",
+      "name": "I have a permissible purpose",
+      "x": 406,
+      "y": 278,
+      "route_after": "/members/⟦input:member_id#0f8d7d4e⟧"
+    },
+    {
+      "at": 1790542174.475832,
+      "operator": "scripted-operator",
+      "kind": "click",
+      "source": "remote_console",
+      "policy": "allow",
+      "risk": "reversible",
+      "role": "button",
+      "name": "Acknowledge",
+      "x": 840,
+      "y": 318,
+      "route_after": "/members/⟦input:member_id#0f8d7d4e⟧"
+    }
+  ]
+}

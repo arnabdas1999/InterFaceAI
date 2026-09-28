@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block quick %}{% if duplicate %}
+<table width="100%" cellpadding="3"><tr><td align="right">
+<form method="get" action="/members/lookup" style="margin:0">Quick find <input type="text" name="mbr" size="6"> <input type="submit" value="Search"></form>
+</td></tr></table>
+{% endif %}{% endblock %}
+{% block body %}
+<table cellspacing="0" cellpadding="0" width="520"><tr><td>
+<table class="grid" cellspacing="0" width="100%">
+<tr><td colspan="2" class="lbl">{{ b.member_inquiry }}</td></tr>
+{% if err %}<tr><td colspan="2"><div class="banner-err">{{ err }}</div></td></tr>{% endif %}
+<form method="get" action="/members/lookup">
+<tr><td class="lbl" width="35%">{{ b.member_id }}:</td><td><input type="text" name="mbr" size="12" maxlength="10"></td></tr>
+<tr><td class="lbl">Last Name:</td><td><input type="text" name="lnm" size="20"></td></tr>
+<tr><td colspan="2" align="right">{% if b.search_style == "button" %}<button type="submit">{{ b.search_label }}</button>{% else %}<input type="submit" value="{{ b.search_label }}">{% endif %}</td></tr>
+</form>
+</table>
+</td></tr></table>
+{% endblock %}

@@ -1,0 +1,22 @@
+{
+  "run_id": "rep-20260927T204930-e8e7f4",
+  "mode": "replay",
+  "capability": "read-savings-balance@1.0.0",
+  "content_hash": "sha256:12c98921de5affb0e32472961398f8c95d2aa27d408030c0c04b14693880e6e3",
+  "tenant_id": "tenant-a",
+  "started_at": "2026-09-27T20:49:30.872Z",
+  "finished_at": "2026-09-27T20:49:30.876Z",
+  "duration_ms": 3,
+  "evidence": [],
+  "interventions": [],
+  "overrides": [],
+  "status": "rejected",
+  "code": "input_contract_violation",
+  "errors": [
+    {
+      "field": "member_id",
+      "message": "does not match pattern ^\\d{5}$"
+    }
+  ],
+  "session_opened": false
+}

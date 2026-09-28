@@ -1,0 +1,33 @@
+{
+  "capability": "read-savings-balance@1.0.0",
+  "content_hash": "sha256:12c98921de5affb0e32472961398f8c95d2aa27d408030c0c04b14693880e6e3",
+  "mode": "full",
+  "runs": [
+    {
+      "kind": "good",
+      "run_id": "val-20260927T204851-6f307c",
+      "status": "success",
+      "passed": true,
+      "outputs_match_discovery": true,
+      "validation_stop": null
+    },
+    {
+      "kind": "good",
+      "run_id": "val-20260927T204853-4d9cc3",
+      "status": "success",
+      "passed": true,
+      "outputs_match_discovery": null,
+      "validation_stop": null
+    },
+    {
+      "kind": "negative",
+      "expected": "member_not_found",
+      "run_id": "val-20260927T204856-eb6fec",
+      "status": "business_outcome",
+      "code": "member_not_found",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "final_status": "approved"
+}

@@ -1,0 +1,47 @@
+{
+  "run_id": "disc-20260927T194811-b16f52",
+  "mode": "discovery",
+  "capability": "open-sub-account",
+  "tenant_id": "tenant-a",
+  "started_at": "2026-09-27T19:48:11.726Z",
+  "finished_at": "2026-09-27T19:49:38.752Z",
+  "duration_ms": 87026,
+  "evidence": [
+    {
+      "kind": "screenshot",
+      "path": "screenshots/8578660-verified-final-state.png",
+      "note": "masked; verified-final-state"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/8578660-verified-final-state.html",
+      "note": "sanitized; verified-final-state"
+    },
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [],
+  "usage": {
+    "model": "gemini-3.7-flash",
+    "decisions": 7,
+    "input_tokens": 18769,
+    "output_tokens": 469,
+    "latency_ms": 83798
+  },
+  "status": "success",
+  "outputs": {},
+  "checkpoint": "Member ID = input member_id; Nickname = input nickname",
+  "recoveries": [],
+  "drift": [],
+  "completed_by": {
+    "d1": "automation",
+    "d2": "automation",
+    "d3": "automation",
+    "d4": "automation",
+    "d5": "automation",
+    "d6": "automation"
+  }
+}

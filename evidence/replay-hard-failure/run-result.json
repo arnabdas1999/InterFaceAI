@@ -1,0 +1,49 @@
+{
+  "run_id": "rep-20260927T204929-d4b8c0",
+  "mode": "replay",
+  "capability": "read-savings-balance@1.0.0",
+  "content_hash": "sha256:12c98921de5affb0e32472961398f8c95d2aa27d408030c0c04b14693880e6e3",
+  "tenant_id": "tenant-a",
+  "started_at": "2026-09-27T20:49:29.077Z",
+  "finished_at": "2026-09-27T20:49:30.453Z",
+  "duration_ms": 1375,
+  "evidence": [
+    {
+      "kind": "screenshot",
+      "path": "screenshots/2170323-s3-permission-denied.png",
+      "note": "masked; s3-permission_denied"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/2170323-s3-permission-denied.html",
+      "note": "sanitized; s3-permission_denied"
+    },
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [],
+  "overrides": [],
+  "status": "failure",
+  "category": "hard_failure",
+  "code": "permission_denied",
+  "message": "The service account lacks an entitlement. A human in the same session inherits the same permissions, so this is a hard failure, not an escalation.",
+  "retryable": false,
+  "side_effect_state": "none",
+  "step_id": "s3",
+  "expected": "Click button 'View Accounts' to proceed",
+  "observed": "Access Denied | You do not have permission to view account balances (ERR-SEC-403).",
+  "attempts": 1,
+  "locator_diagnostics": [],
+  "recoveries": [
+    {
+      "code": "dialog_handled",
+      "state_id": "dialog_view_balances",
+      "step_id": "s3",
+      "detail": "native confirm accepted per catalog"
+    }
+  ],
+  "drift": []
+}

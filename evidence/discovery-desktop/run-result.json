@@ -1,0 +1,49 @@
+{
+  "run_id": "disc-20260927T204319-164236",
+  "mode": "discovery",
+  "capability": "desktop-read-savings-balance",
+  "tenant_id": "tenant-d",
+  "started_at": "2026-09-27T20:43:19.774Z",
+  "finished_at": "2026-09-27T20:43:52.644Z",
+  "duration_ms": 32870,
+  "evidence": [
+    {
+      "kind": "screenshot",
+      "path": "screenshots/1832095-verified-final-state.png",
+      "note": "masked; verified-final-state"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/1832095-verified-final-state.uia.json",
+      "note": "sanitized UIA tree; verified-final-state"
+    },
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [],
+  "usage": {
+    "model": "gemini-3.6-flash",
+    "decisions": 5,
+    "input_tokens": 12624,
+    "output_tokens": 379,
+    "latency_ms": 25665
+  },
+  "overrides": [],
+  "status": "success",
+  "outputs": {
+    "savings_balance": {
+      "amount": "⟦financial#a03a8071⟧",
+      "currency": "USD"
+    }
+  },
+  "checkpoint": "Member: = input member_id",
+  "recoveries": [],
+  "drift": [],
+  "completed_by": {
+    "d1": "automation",
+    "d2": "automation"
+  }
+}

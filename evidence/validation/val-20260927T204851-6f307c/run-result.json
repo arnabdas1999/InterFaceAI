@@ -1,0 +1,52 @@
+{
+  "run_id": "val-20260927T204851-6f307c",
+  "mode": "validation",
+  "capability": "read-savings-balance@1.0.0",
+  "content_hash": "sha256:12c98921de5affb0e32472961398f8c95d2aa27d408030c0c04b14693880e6e3",
+  "tenant_id": "tenant-a",
+  "started_at": "2026-09-27T20:48:51.172Z",
+  "finished_at": "2026-09-27T20:48:53.336Z",
+  "duration_ms": 2163,
+  "evidence": [
+    {
+      "kind": "screenshot",
+      "path": "screenshots/2133164-final-state.png",
+      "note": "masked; final-state"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/2133164-final-state.html",
+      "note": "sanitized; final-state"
+    },
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [],
+  "overrides": [],
+  "status": "success",
+  "outputs": {
+    "savings_balance": {
+      "amount": "⟦financial#a03a8071⟧",
+      "currency": "USD"
+    }
+  },
+  "checkpoint": "Account Type shows 'Share Savings'; Member ID shows the input member_id",
+  "recoveries": [
+    {
+      "code": "dialog_handled",
+      "state_id": "dialog_view_balances",
+      "step_id": "s3",
+      "detail": "native confirm accepted per catalog"
+    }
+  ],
+  "drift": [],
+  "completed_by": {
+    "s1": "automation",
+    "s2": "automation",
+    "s3": "automation",
+    "s4": "automation"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "id": "synthcore-desktop",
+  "version": "1.0.0",
+  "vendor_product": "SynthCore Desktop",
+  "description": "App profile for the SynthCore Desktop (Windows Forms) client. Same business flow as the web product; no sign-on (runs as the service user).",
+  "fingerprint": {
+    "product": "SynthCore Desktop",
+    "generator_pattern": "^SynthCore Desktop (\\d+\\.\\d+)",
+    "version_range": ">=4.2,<5.0",
+    "required_anchor_texts": []
+  },
+  "route_handles": {
+    "member_inquiry": "/desktop/member-inquiry"
+  },
+  "login": null,
+  "state_catalog": [
+    {
+      "id": "permission_denied",
+      "description": "The service account lacks an entitlement (hard failure, not an escalation).",
+      "detector": {
+        "kind": "text_in_region",
+        "region": {
+          "any_frame": true
+        },
+        "pattern": "Access Denied"
+      },
+      "classification": "hard_failure",
+      "scope": "global",
+      "error_code": "permission_denied",
+      "retryable": false,
+      "message_region": {
+        "any_frame": true
+      }
+    },
+    {
+      "id": "search_no_results",
+      "description": "Search returned no records.",
+      "detector": {
+        "kind": "text_in_region",
+        "region": {
+          "any_frame": true
+        },
+        "pattern": "No records found"
+      },
+      "classification": "business_outcome",
+      "scope": "step",
+      "default_outcome_code": "member_not_found",
+      "applies_after_submit_on": [
+        "/desktop/member-inquiry"
+      ]
+    },
+    {
+      "id": "validation_banner",
+      "description": "The client rejected the input.",
+      "detector": {
+        "kind": "text_in_region",
+        "region": {
+          "any_frame": true
+        },
+        "pattern": "must be exactly 5 digits"
+      },
+      "classification": "business_outcome",
+      "scope": "step",
+      "default_outcome_code": "validation_rejected",
+      "applies_after_submit_on": [
+        "/desktop/member-inquiry"
+      ],
+      "message_region": {
+        "any_frame": true
+      }
+    }
+  ],
+  "risk_rules": [
+    {
+      "id": "close-account",
+      "match": {
+        "name_pattern": "(?i)close account|delete|terminate"
+      },
+      "risk": "irreversible",
+      "reason": "Destructive account maintenance."
+    }
+  ],
+  "safe_post_routes": [],
+  "sensitive_fields": {
+    "labels": [
+      {
+        "label_pattern": "^Name$",
+        "kind": "name"
+      },
+      {
+        "label_pattern": "Balance",
+        "kind": "money"
+      },
+      {
+        "label_pattern": "^(Member|Member ID)$",
+        "kind": "member_id"
+      }
+    ],
+    "patterns": [
+      {
+        "pattern": "\\(?\\$\\s?[\\d,]+\\.\\d{2}\\)?",
+        "kind": "money"
+      },
+      {
+        "pattern": "(?<![\\d.])\\d{10}(?![\\d.])",
+        "kind": "account_number"
+      }
+    ]
+  },
+  "vocabulary": {
+    "member_id": "Member ID",
+    "share_savings_balance": "Share Savings Balance"
+  }
+}

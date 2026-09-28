@@ -1,0 +1,13 @@
+{
+  "tenant_id": "tenant-c",
+  "display_name": "Lakeshore Teachers CU (synthetic; classic frameset UI of the same product)",
+  "app_profile": "synthcore@1.0.0",
+  "base_url": "http://127.0.0.1:8785",
+  "product_version": "4.2.7",
+  "vocabulary": {},
+  "secret_ref": "synthcore/operator",
+  "override_refs": [],
+  "data_classification": "synthetic",
+  "surface": "legacy-web",
+  "root_frame": "content"
+}

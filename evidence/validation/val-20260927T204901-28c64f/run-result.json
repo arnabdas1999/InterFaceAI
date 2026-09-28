@@ -1,0 +1,34 @@
+{
+  "run_id": "val-20260927T204901-28c64f",
+  "mode": "validation",
+  "capability": "open-sub-account@2.0.0",
+  "content_hash": "sha256:434c404f29fc850a348c07b97b575d2a656d2c2035803541544e2f0c0f312e0a",
+  "tenant_id": "tenant-a",
+  "started_at": "2026-09-27T20:49:01.838Z",
+  "finished_at": "2026-09-27T20:49:03.182Z",
+  "duration_ms": 1343,
+  "evidence": [
+    {
+      "kind": "screenshot",
+      "path": "screenshots/2143066-s2-search-no-results.png",
+      "note": "masked; s2-search_no_results"
+    },
+    {
+      "kind": "dom_snapshot",
+      "path": "dom/2143066-s2-search-no-results.html",
+      "note": "sanitized; s2-search_no_results"
+    },
+    {
+      "kind": "events",
+      "path": "events.jsonl",
+      "note": ""
+    }
+  ],
+  "interventions": [],
+  "overrides": [],
+  "status": "business_outcome",
+  "code": "member_not_found",
+  "details": {},
+  "step_id": "s2",
+  "recoveries": []
+}
